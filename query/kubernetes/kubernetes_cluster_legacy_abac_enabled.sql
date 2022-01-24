@@ -1,0 +1,15 @@
+select
+  type || ' ' || name as resource,
+  case
+    when (arguments ->> 'enable_legacy_abac')::boolean then 'ok' else 'alarm'
+  end as status,
+  name || case
+    when arguments ->> 'enable_legacy_abac' is null then ' ''management.enable_legacy_abac'' is not defined'
+    when (arguments ->> 'enable_legacy_abac')::boolean then ' legacy authorization enabled'
+    else ' legacy authorization disabled'
+  end || '.' reason,
+  path
+from
+  terraform_resource
+where
+  type = 'google_container_cluster';
