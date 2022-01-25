@@ -1,10 +1,10 @@
 select
   type || ' ' || name as resource,
   case
-    when arguments -> 'network_policy' is not null then 'ok' else 'alarm'
+    when (arguments -> 'network_policy') is not null then 'ok' else 'alarm'
   end as status,
   name || case
-    when arguments -> 'network_policy' is not null then ' network policy defined'
+    when (arguments -> 'network_policy') is not null then ' network policy defined'
     else ' network policy not defined'
   end || '.' reason,
   path

@@ -1,28 +1,28 @@
 select
   type || ' ' || name as resource,
   case
-    when coalesce(trim(arguments ->> 'database_version'), '') = '' then 'alarm'
-    when arguments ->> 'database_version' not like 'SQLSERVER%' then 'skip'
-    when (arguments -> 'settings' -> 'database_flags' ->> 'name' = 'cross db ownership chaining' and
-      arguments -> 'settings' -> 'database_flags' ->> 'value' = 'off')
+    when coalesce(trim((arguments ->> 'database_version')), '') = '' then 'alarm'
+    when (arguments ->> 'database_version') not like 'SQLSERVER%' then 'skip'
+    when (arguments -> 'settings' -> 'database_flags' ->> 'name' = 'cross db ownership chaining') and
+      (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'off'
     then 'ok'
     else 'alarm'
   end as status,
   name || case
-    when coalesce(trim(arguments ->> 'database_version'), '') = ''
+    when coalesce(trim((arguments ->> 'database_version')), '') = ''
     then ' ''database_version'' is not defined'
-    when arguments ->> 'database_version' not like 'SQLSERVER%'
+    when (arguments ->> 'database_version') not like 'SQLSERVER%'
     then ' not a SQL Server database'
-    when arguments -> 'settings' is null then ' ''settings'' is not defined' 
-    when arguments -> 'settings' -> 'database_flags' is null then ' ''settings.database_flags'' is not defined'
-    when coalesce(trim(arguments -> 'settings' -> 'database_flags' ->> 'name'), '') = ''
+    when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+    when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
+    when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
     then ' ''settings.database_flags.name'' is not defined'
-    when coalesce(trim(arguments -> 'settings' -> 'database_flags' ->> 'value'), '') = ''
+    when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'value')), '') = ''
     then ' ''settings.database_flags.value'' is not defined'
-    when arguments -> 'settings' -> 'database_flags' ->> 'name' <> 'cross db ownership chaining'
+    when (arguments -> 'settings' -> 'database_flags' ->> 'name') <> 'cross db ownership chaining'
     then ' ''cross db ownership chaining'' database flag not set'
-    when (arguments -> 'settings' -> 'database_flags' ->> 'name' = 'cross db ownership chaining' and
-      arguments -> 'settings' -> 'database_flags' ->> 'value' = 'off')
+    when (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cross db ownership chaining' and
+      (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'off'
     then ' ''cross db ownership chaining'' database flag set to ''off'''
     else ' ''cross db ownership chaining'' database flag set to ''on'''
   end || '.' reason,

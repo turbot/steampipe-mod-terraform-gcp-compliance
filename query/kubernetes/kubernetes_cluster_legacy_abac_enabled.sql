@@ -4,7 +4,7 @@ select
     when (arguments ->> 'enable_legacy_abac')::boolean then 'ok' else 'alarm'
   end as status,
   name || case
-    when arguments ->> 'enable_legacy_abac' is null then ' ''management.enable_legacy_abac'' is not defined'
+    when (arguments ->> 'enable_legacy_abac') is null then ' ''enable_legacy_abac'' is not defined'
     when (arguments ->> 'enable_legacy_abac')::boolean then ' legacy authorization enabled'
     else ' legacy authorization disabled'
   end || '.' reason,
