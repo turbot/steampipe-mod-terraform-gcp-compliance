@@ -5,7 +5,7 @@ mod "terraform_gcp_compliance" {
   color         = "#844FBA"
   documentation = file("./docs/index.md")
   icon          = "/images/mods/turbot/terraform-gcp-compliance.svg"
-  categories    = ["gcp", "compliance", "iaas", "security", "terraform"]
+  categories    = ["gcp", "compliance", "iac", "security", "terraform"]
 
   opengraph {
     title       = "Steampipe Mod to Analyze Terraform"
