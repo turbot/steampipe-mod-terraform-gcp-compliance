@@ -18,11 +18,11 @@ benchmark "kms" {
 
 control "cmek_rotation_one_hundred_days" {
   title         = "Check that CMEK rotation policy is in place and is sufficiently short"
+  description   = "Google Cloud Key Management Service stores cryptographic keys in a hierarchical structure designed for useful and elegant access control management. The format for the rotation schedule depends on the client library that is used."
   sql           = query.kms_key_rotated_within_100_day.sql
 
   tags = merge(local.kms_compliance_common_tags, {
     forseti_security_v226   = "true"
-    severity                = "high"
   })
 }
 

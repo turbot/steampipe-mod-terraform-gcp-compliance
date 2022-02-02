@@ -29,7 +29,6 @@ control "bigquery_dataset_not_publicly_accessible" {
     cis_level               = "1"
     cis_type                = "automated"
     forseti_security_v226   = "true"
-    severity                = "high"
   })
 }
 

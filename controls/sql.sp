@@ -1,10 +1,4 @@
 locals {
-  policy_bundle_sql_common_tags = {
-    service = "sql"
-  }
-}
-
-locals {
   sql_compliance_common_tags = merge(local.compliance_common_tags, {
     service = "sql"
   })
@@ -248,7 +242,6 @@ control "sql_instance_require_ssl_enabled" {
     cis_item_id        = "6.4"
     cis_level          = "1"
     cis_type           = "automated"
-    severity           = "high"
   })
 }
 

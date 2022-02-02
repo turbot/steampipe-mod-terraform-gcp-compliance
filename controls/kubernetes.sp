@@ -23,11 +23,11 @@ benchmark "kubernetes" {
 
 control "kubernetes_cluster_private_cluster_config_enabled" {
   title         = "Verify all GKE clusters are Private Clusters"
+  description   = ""
   sql           = query.kubernetes_cluster_private_cluster_config_enabled.sql
 
   tags = merge(local.kubernetes_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }
 
@@ -37,7 +37,6 @@ control "kubernetes_cluster_legacy_abac_enabled" {
 
   tags = merge(local.kubernetes_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }
 
@@ -47,7 +46,6 @@ control "kubernetes_cluster_legacy_endpoints_disabled" {
 
   tags = merge(local.kubernetes_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }
 
@@ -57,7 +55,6 @@ control "kubernetes_cluster_auto_repair_enabled" {
 
   tags = merge(local.kubernetes_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }
 
@@ -67,7 +64,6 @@ control "kubernetes_cluster_auto_upgrade_enabled" {
 
   tags = merge(local.kubernetes_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }
 
@@ -77,7 +73,6 @@ control "kubernetes_cluster_node_config_image_cos_containerd" {
 
   tags = merge(local.kubernetes_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }
 
@@ -87,6 +82,5 @@ control "kubernetes_cluster_network_policy_installed" {
 
   tags = merge(local.kubernetes_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }

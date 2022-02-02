@@ -81,7 +81,7 @@ control "compute_instance_ip_forwarding_disabled" {
 }
 
 control "compute_instance_oslogin_enabled" {
-  title         = "Ensure OS login is enabled for a Project"
+  title         = "Ensure OS login is enabled for a project"
   description   = "Enabling OS login binds SSH certificates to IAM users and facilitates effective SSH certificate management."
   sql           = query.compute_instance_oslogin_enabled.sql
 
@@ -190,7 +190,6 @@ control "compute_subnetwork_flow_log_enabled" {
 
   tags = merge(local.compute_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }
 
@@ -200,6 +199,5 @@ control "compute_subnetwork_private_ip_google_access" {
 
   tags = merge(local.compute_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }

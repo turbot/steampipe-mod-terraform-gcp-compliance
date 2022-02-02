@@ -36,7 +36,6 @@ control "dnssec_prevent_rsasha1_ksk" {
 
   tags = merge(local.dns_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }
 
@@ -46,6 +45,5 @@ control "dnssec_prevent_rsasha1_zsk" {
 
   tags = merge(local.dns_compliance_common_tags, {
     cft_scorecard_v1   = "true"
-    severity           = "high"
   })
 }

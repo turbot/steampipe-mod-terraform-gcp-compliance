@@ -30,7 +30,7 @@ control "storage_bucket_not_publicly_accessible" {
 }
 
 control "storage_bucket_uniform_access_enabled" {
-  title         = "Ensure that Cloud Storage bucket is not anonymously or publicly accessible"
+  title         = "Ensure that Cloud Storage buckets have uniform bucket-level access enabled"
   description   = "It is recommended that uniform bucket-level access is enabled on Cloud Storage buckets."
   sql           = query.storage_bucket_uniform_access_enabled.sql
 
