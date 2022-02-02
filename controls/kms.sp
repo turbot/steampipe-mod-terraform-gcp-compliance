@@ -9,14 +9,14 @@ benchmark "kms" {
   description = "This benchmark provides a set of controls that detect Terraform GCP KMS resources deviating from security best practices."
 
   children = [
-    control.cmek_rotation_one_hundred_days,
-    control.kms_key_rotated_within_90_day
+    control.kms_key_rotated_within_90_day,
+    control.kms_key_rotated_within_100_day
   ]
 
   tags = local.kms_compliance_common_tags
 }
 
-control "cmek_rotation_one_hundred_days" {
+control "kms_key_rotated_within_100_day" {
   title         = "Check that CMEK rotation policy is in place and is sufficiently short"
   description   = "Google Cloud Key Management Service stores cryptographic keys in a hierarchical structure designed for useful and elegant access control management. The format for the rotation schedule depends on the client library that is used."
   sql           = query.kms_key_rotated_within_100_day.sql
