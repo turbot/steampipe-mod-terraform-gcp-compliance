@@ -17,7 +17,7 @@ benchmark "iam" {
 
 control "iam_service_account_gcp_managed_key" {
   title         = "Ensure that there are only GCP-managed service account keys for each service account"
-  description   = "User managed service accounts should not have user-managed keys."
+  description   = "User managed service accounts should not have user-managed keys. It is recommended that only GCP-managed service account keys are used for each service account "
   sql           = query.iam_service_account_gcp_managed_key.sql
 
   tags = merge(local.iam_compliance_common_tags, {

@@ -43,7 +43,7 @@ control "compute_disk_encrypted_with_csk" {
 
 control "compute_instance_block_project_wide_ssh_enabled" {
   title         = "Ensure 'Block Project-wide SSH keys' is enabled for VM instances"
-  description   = "It is recommended to use Instance specific SSH key(s) instead of using common/shared project-wide SSH key(s) to access Instances."
+  description   = "It is recommended to use instance specific SSH key(s) instead of using common/shared project-wide SSH key(s) to access instances."
   sql           = query.compute_instance_block_project_wide_ssh_enabled.sql
 
   tags = merge(local.compute_compliance_common_tags, {
@@ -56,7 +56,7 @@ control "compute_instance_block_project_wide_ssh_enabled" {
 
 control "compute_instance_confidential_computing_enabled" {
   title         = "Ensure that Compute instances have Confidential Computing enabled"
-  description   = "Google Cloud encrypts data at-rest and in-transit, but customer data must be decrypted for processing. Confidential Computing is a breakthrough technology which encrypts data in-use—while it is being processed. Confidential Computing environments keep data encrypted in memory and elsewhere outside the central processing unit (CPU)."
+  description   = "Google Cloud encrypts data at-rest and in-transit, but customer data must be decrypted for processing. Confidential Computing is a breakthrough technology which encrypts data in-use while it is being processed. Confidential Computing environments keep data encrypted in memory and elsewhere outside the central processing unit (CPU)."
   sql           = query.compute_instance_confidential_computing_enabled.sql
 
   tags = merge(local.compute_compliance_common_tags, {
@@ -108,7 +108,7 @@ control "compute_instance_serial_port_connection_disabled" {
 
 control "compute_instance_shielded_vm_enabled" {
   title         = "Ensure Compute instances are launched with Shielded VM enabled"
-  description   = "To defend against against advanced threats and ensure that the boot loader and firmware on your VMs are signed and untampered, it is recommended that Compute instances are launched with Shielded VM enabled."
+  description   = "To defend against advanced threats and to ensure that the boot loader and firmware on your VMs are signed and untampered, it is recommended that Compute instances are launched with Shielded VM enabled."
   sql           = query.compute_instance_shielded_vm_enabled.sql
 
   tags = merge(local.compute_compliance_common_tags, {
@@ -173,7 +173,7 @@ control "compute_network_contains_no_default_network" {
 
 control "compute_network_contains_no_legacy_network" {
   title         = "Ensure legacy networks do not exist for a project"
-  description   = "Legacy networks have a single network IPv4 prefix range and a single gateway IP address for the whole network. The network is global in scope and spans all cloud regions. Subnetworks cannot be created in a legacy network and are unable to switch from legacy to auto or custom subnet networks. Legacy networks can have an impact for high network traffic projects and are subject to a single point of contention or failure."
+  description   = "Legacy networks have a single network IPv4 prefix range and a single gateway IP address for the whole network. The network is global in scope and spans all cloud regions. Subnetworks cannot be created in a legacy network and are unable to switch from legacy to auto or custom subnet networks. Legacy networks can have an impact for high network traffic projects and are subjected to a single point of contention or failure."
   sql           = query.compute_network_contains_no_legacy_network.sql
 
   tags = merge(local.compute_compliance_common_tags, {
