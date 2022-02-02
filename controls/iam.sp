@@ -16,7 +16,7 @@ benchmark "iam" {
 }
 
 control "iam_service_account_gcp_managed_key" {
-  title         = "nsure that there are only GCP-managed service account keys for each service account"
+  title         = "Ensure that there are only GCP-managed service account keys for each service account"
   description   = "User managed service accounts should not have user-managed keys."
   sql           = query.iam_service_account_gcp_managed_key.sql
 
