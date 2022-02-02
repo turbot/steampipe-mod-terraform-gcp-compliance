@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "kms" {
-  title       = "Cloud DNS"
-  description = "This benchmark provides a set of controls that detect Terraform GCP DNS resources deviating from security best practices."
+  title       = "KMS"
+  description = "This benchmark provides a set of controls that detect Terraform GCP KMS resources deviating from security best practices."
 
   children = [
     control.cmek_rotation_one_hundred_days,

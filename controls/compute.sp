@@ -21,7 +21,6 @@ benchmark "compute" {
     control.compute_instance_with_no_public_ip_addresses,
     control.compute_network_contains_no_default_network,
     control.compute_network_contains_no_legacy_network,
-    control.compute_network_dns_logging_enabled,
     control.compute_subnetwork_flow_log_enabled,
     control.compute_subnetwork_private_ip_google_access
   ]
@@ -180,19 +179,6 @@ control "compute_network_contains_no_legacy_network" {
   tags = merge(local.compute_compliance_common_tags, {
     cis         = "true"
     cis_item_id = "3.2"
-    cis_level   = "1"
-    cis_type    = "automated"
-  })
-}
-
-control "compute_network_dns_logging_enabled" {
-  title         = "Ensure that Cloud DNS logging is enabled for all VPC networks"
-  description   = "Cloud DNS logging records the queries from the name servers within your VPC to Stackdriver. Logged queries can come from Compute Engine VMs, GKE containers, or other GCP resources provisioned within the VPC."
-  sql           = query.compute_network_dns_logging_enabled.sql
-
-  tags = merge(local.compute_compliance_common_tags, {
-    cis         = "true"
-    cis_item_id = "2.12"
     cis_level   = "1"
     cis_type    = "automated"
   })
