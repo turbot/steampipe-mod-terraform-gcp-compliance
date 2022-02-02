@@ -181,7 +181,7 @@ control "sql_instance_postgresql_log_min_duration_statement_database_flag_disabl
 
 control "sql_instance_postgresql_log_parser_stats_database_flag_off" {
   title         = "Ensure 'log_parser_stats' database flag for Cloud SQL PostgreSQL instance is set to 'off'"
-  description   = "The PostgreSQL planner/optimizer is responsible to parse and verify the syntax of each query received by the server. If the syntax is correct a parse tree is built up else an error is generated. The log_parser_stats flag controls the inclusion of parser performance statistics in the PostgreSQL logs for each query."
+  description   = "The PostgreSQL planner/optimizer is responsible to parse and verify the syntax of each query received by the server. If the syntax is correct, a parse tree is built up else an error is generated. The log_parser_stats flag controls the inclusion of parser performance statistics in the PostgreSQL logs for each query."
   sql           = query.sql_instance_postgresql_log_parser_stats_database_flag_off.sql
 
   tags = merge(local.sql_compliance_common_tags, {
@@ -273,7 +273,7 @@ control "sql_instance_sql_contained_database_authentication_database_flag_off" {
 
 control "sql_instance_sql_cross_db_ownership_chaining_database_flag_off" {
   title         = "Ensure that the 'cross db ownership chaining' database flag for Cloud SQL SQL Server instance is set to 'off'"
-  description   = "It is recommended to set cross db ownership chaining database flag for Cloud SQL SQL Server instance to off."
+  description   = "It is recommended to set cross DB ownership chaining database flag for Cloud SQL SQL Server instance to off."
   sql           = query.sql_instance_sql_cross_db_ownership_chaining_database_flag_off.sql
 
   tags = merge(local.sql_compliance_common_tags, {

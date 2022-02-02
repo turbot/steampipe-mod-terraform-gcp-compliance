@@ -47,7 +47,7 @@ control "bigquery_dataset_encrypted_with_cmk" {
 
 control "bigquery_table_encrypted_with_cmk" {
   title         = "Ensure that all BigQuery Tables are encrypted with Customer-managed encryption key (CMEK)"
-  description   = "BigQuery by default encrypts the data as rest by employing Envelope Encryption using Google managed cryptographic keys. The data is encrypted using the data encryption keys and data encryption keys themselves are further encrypted using key encryption keys. This is seamless and do not require any additional input from the user. However, if you want to have greater control, Customer-managed encryption keys (CMEK) can be used as encryption key management solution for BigQuery tables. If CMEK is used, the CMEK is used to encrypt the data encryption keys instead of using google-managed encryption keys."
+  description   = "BigQuery by default encrypts the data as rest by employing Envelope Encryption using Google managed cryptographic keys. The data is encrypted using the data encryption keys and data encryption keys themselves are further encrypted using key encryption keys. This is seamless and does not require any additional input from the user. However, if you want to have greater control, Customer-managed encryption keys (CMEK) can be used as encryption key management solution for BigQuery tables. If CMEK is used, the CMEK is used to encrypt the data encryption keys instead of using google-managed encryption keys."
   sql           = query.bigquery_table_encrypted_with_cmk.sql
 
   tags = merge(local.bigquery_compliance_common_tags, {
