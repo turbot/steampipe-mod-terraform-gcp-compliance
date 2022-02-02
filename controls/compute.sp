@@ -9,6 +9,7 @@ benchmark "compute" {
   description = "This benchmark provides a set of controls that detect Terraform GCP Compute Engine resources deviating from security best practices."
 
   children = [
+    control.compute_disk_encrypted_with_csk,
     control.compute_instance_block_project_wide_ssh_enabled,
     control.compute_instance_confidential_computing_enabled,
     control.compute_instance_ip_forwarding_disabled,
@@ -26,6 +27,19 @@ benchmark "compute" {
   ]
 
   tags = local.compute_compliance_common_tags
+}
+
+control "compute_disk_encrypted_with_csk" {
+  title         = "Ensure VM disks for critical VMs are encrypted with Customer-Supplied Encryption Keys (CSEK)"
+  description   = "Customer-Supplied Encryption Keys (CSEK) are a feature in Google Cloud Storage and Google Compute Engine. If you supply your own encryption keys, Google uses your key to protect the Google-generated keys used to encrypt and decrypt your data. By default, Google Compute Engine encrypts all data at rest. Compute Engine handles and manages this encryption for you without any additional actions on your part. However, if you wanted to control and manage this encryption yourself, you can provide your own encryption keys."
+  sql           = query.compute_disk_encrypted_with_csk.sql
+
+  tags = merge(local.compute_compliance_common_tags, {
+    cis         = "true"
+    cis_item_id = "4.7"
+    cis_level   = "2"
+    cis_type    = "automated"
+  })
 }
 
 control "compute_instance_block_project_wide_ssh_enabled" {
