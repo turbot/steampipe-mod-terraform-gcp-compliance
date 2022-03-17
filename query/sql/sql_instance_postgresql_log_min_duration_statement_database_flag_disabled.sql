@@ -26,7 +26,7 @@ select
     then ' ''log_min_duration_statement'' database flag set to disabled'
     else ' ''log_min_duration_statement'' database flag set to enabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -11,7 +11,7 @@ select
     when (arguments -> 'node_config' -> 'metadata' ->> 'disable-legacy-endpoints') = 'true' then ' legacy endpoints disabled'
     else ' legacy endpoints enabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

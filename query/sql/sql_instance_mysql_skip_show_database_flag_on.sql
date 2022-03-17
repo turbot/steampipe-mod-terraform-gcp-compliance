@@ -26,7 +26,7 @@ select
     then ' ''skip_show_database'' database flag set to ''on'''
     else ' ''skip_show_database'' database flag set to ''off'''
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

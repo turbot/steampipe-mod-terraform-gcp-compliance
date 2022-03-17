@@ -16,7 +16,7 @@ select
     then ' ''user options'' database flag set'
     else ' ''user options'' database flag not set'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

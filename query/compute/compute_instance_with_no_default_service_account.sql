@@ -10,7 +10,7 @@ select
     when (arguments -> 'service_account' ->> 'email') like '%-compute@developer.gserviceaccount.com' then ' configured to use default service account'
     else ' not configured with default service account'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

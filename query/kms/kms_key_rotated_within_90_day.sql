@@ -9,7 +9,7 @@ select
     when coalesce((arguments ->> 'rotation_period'), '') = '' then ' requires manual rotation'
     else ' rotation period set for ' || (split_part((arguments ->> 'rotation_period'), 's', 1) :: int)/86400 || ' day(s)'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -26,7 +26,7 @@ select
     then ' ''log_temp_files'' database flag set to ''0'''
     else ' ''log_temp_files'' database flag not set to ''0'''
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

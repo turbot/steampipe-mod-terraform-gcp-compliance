@@ -26,7 +26,7 @@ select
     then ' ''local_infile'' database flag set to ''off'''
     else ' ''local_infile'' database flag set to ''on'''
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -9,7 +9,7 @@ select
     when (arguments -> 'management' ->> 'auto_upgrade')::boolean then ' node pool auto upgrade enabled'
     else ' node pool auto upgrade disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

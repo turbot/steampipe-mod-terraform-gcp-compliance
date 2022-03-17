@@ -10,7 +10,7 @@ select
     when (arguments -> 'auto_create_subnetworks')::bool then ' is not a legacy network'
     else ' is a legacy network'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

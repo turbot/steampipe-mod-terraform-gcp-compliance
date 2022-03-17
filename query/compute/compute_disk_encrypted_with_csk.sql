@@ -8,7 +8,7 @@ select
     when (arguments -> 'disk_encryption_key') is null then 'not encrypted with Customer Supplied Key'
     else ' encrypted with Customer Supplied Key'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

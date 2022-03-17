@@ -8,7 +8,7 @@ select
     when (arguments ->> 'enable_legacy_abac')::boolean then ' legacy authorization enabled'
     else ' legacy authorization disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

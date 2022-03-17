@@ -11,7 +11,7 @@ select
     when (arguments -> 'settings' -> 'backup_configuration' ->> 'enabled')::boolean then ' automatic backups configured'
     else ' automatic backups not configured'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

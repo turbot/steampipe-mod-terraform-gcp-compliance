@@ -26,7 +26,7 @@ select
     then ' ''log_planner_stats'' database flag set to ''off'''
     else ' ''log_planner_stats'' database flag set to ''on'''
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

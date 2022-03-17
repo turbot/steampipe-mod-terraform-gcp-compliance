@@ -8,7 +8,7 @@ select
     when (arguments -> 'default_encryption_configuration') is null then ' not encrypted with CMEK' 
     else ' encrypted with CMEK'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -21,7 +21,7 @@ select
     then ' using RSASHA1 algorithm for zone-signing'
     else ' not using RSASHA1 algorithm for zone-signing'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

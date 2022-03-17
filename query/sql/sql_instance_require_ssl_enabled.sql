@@ -11,7 +11,7 @@ select
     when (arguments -> 'settings' -> 'ip_configuration' ->> 'require_ssl')::boolean then ' enforces SSL connections'
     else ' does not enforce SSL connections'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

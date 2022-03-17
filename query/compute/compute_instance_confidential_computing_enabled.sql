@@ -10,7 +10,7 @@ select
     when (arguments -> 'confidential_instance_config' -> 'enable_confidential_compute')::bool then ' confidential computing enabled'
     else ' confidential computing disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

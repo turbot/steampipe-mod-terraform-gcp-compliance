@@ -7,7 +7,7 @@ select
     when (arguments -> 'log_config') is not null then ' flow logging enabled'
     else ' flow logging disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where
