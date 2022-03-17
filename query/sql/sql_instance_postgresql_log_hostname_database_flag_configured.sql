@@ -26,7 +26,7 @@ select
     then ' ''log_hostname'' database flag set to ''on'''
     else ' ''log_hostname'' database flag set to ''off'''
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

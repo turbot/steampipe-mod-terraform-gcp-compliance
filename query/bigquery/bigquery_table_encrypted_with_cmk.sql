@@ -8,7 +8,7 @@ select
     when (arguments -> 'encryption_configuration') is null then ' encrypted with Google managed cryptographic keys' 
     else ' encrypted with customer-managed encryption keys'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

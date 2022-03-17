@@ -10,7 +10,7 @@ select
     when name ilike 'default' and (arguments ->> 'project') is null then ' provider project is using default network'
     when name ilike 'default' and (arguments ->> 'project') is not null then ' ' || (arguments ->> 'project') || ' is using default network'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

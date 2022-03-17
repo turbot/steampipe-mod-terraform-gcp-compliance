@@ -7,7 +7,7 @@ select
     when (arguments -> 'private_cluster_config') is not null then ' private cluster config enabled'
     else ' private cluster config disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -10,7 +10,7 @@ select
     when (arguments ->> 'entity') like any (array ['%allAuthenticatedUsers%','%allUsers%']) then ' publicly accessible'
     else ' not publicly accessible'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

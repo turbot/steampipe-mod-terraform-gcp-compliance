@@ -12,7 +12,7 @@ select
     when (arguments -> 'metadata' ->> 'enable-oslogin') = 'true' then ' has OS login enabled'
     else ' has OS login disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -8,7 +8,7 @@ select
     when (arguments ->> 'private_ip_google_access')::boolean then ' private Google Access is enabled'
     else ' private Google Access is disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

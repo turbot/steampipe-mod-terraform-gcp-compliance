@@ -17,7 +17,7 @@ select
     then ' DNSSEC not enabled'
     else ' DNSSEC enabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

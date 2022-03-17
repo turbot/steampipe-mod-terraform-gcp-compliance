@@ -12,7 +12,7 @@ select
     when (arguments -> 'metadata' ->> 'block-project-ssh-keys') = 'true' then ' has Block Project-wide SSH keys enabled'
     else ' has Block Project-wide SSH keys disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

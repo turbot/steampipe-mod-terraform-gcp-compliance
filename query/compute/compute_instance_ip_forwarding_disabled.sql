@@ -10,7 +10,7 @@ select
     when (arguments -> 'can_ip_forward')::bool then ' IP forwarding enabled'
     else ' IP forwarding disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

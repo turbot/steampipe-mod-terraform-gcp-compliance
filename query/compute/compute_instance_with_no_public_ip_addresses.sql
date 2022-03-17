@@ -8,7 +8,7 @@ select
     when (arguments -> 'network_interface' -> 'access_config') is null or (arguments -> 'network_interface' ->> 'access_config') like '{}' then ' not associated with public IP addresses'
     else ' associated with public IP addresses'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

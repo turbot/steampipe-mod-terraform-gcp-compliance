@@ -9,7 +9,7 @@ select
     when (arguments -> 'management' ->> 'auto_repair')::boolean then ' node pool auto repair enabled'
     else ' node pool auto repair disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

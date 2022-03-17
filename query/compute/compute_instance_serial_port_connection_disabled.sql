@@ -12,7 +12,7 @@ select
     when (arguments -> 'metadata' ->> 'serial-port-enable') = 'true' then ' has serial port connections enabled'
     else ' has serial port connections disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

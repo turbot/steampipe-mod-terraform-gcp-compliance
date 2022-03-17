@@ -9,7 +9,7 @@ select
     when (arguments -> 'node_config' ->> 'image_type') = 'COS_CONTAINERD' then ' Container-Optimized OS(COS) is used'
     else ' Container-Optimized OS(COS) not used'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

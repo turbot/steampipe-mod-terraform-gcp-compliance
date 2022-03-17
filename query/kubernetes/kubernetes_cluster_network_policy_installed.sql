@@ -7,7 +7,7 @@ select
     when (arguments -> 'network_policy') is not null then ' network policy defined'
     else ' network policy not defined'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

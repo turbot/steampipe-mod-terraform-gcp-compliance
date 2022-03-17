@@ -8,7 +8,7 @@ select
     when (arguments ->> 'uniform_bucket_level_access')::boolean then ' uniform bucket-level access enabled'
     else ' uniform bucket-level access not enabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

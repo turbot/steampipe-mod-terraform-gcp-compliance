@@ -12,7 +12,7 @@ select
     when (arguments -> 'service_account' ->> 'email') like '%-compute@developer.gserviceaccount.com' and (arguments -> 'service_account' ->> 'scopes') like '%cloud-platform%' then ' configured to use default service account with full access'
     else ' not configured with default service account with full access'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where
