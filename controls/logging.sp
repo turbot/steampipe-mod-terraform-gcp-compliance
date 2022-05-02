@@ -1,18 +1,20 @@
 locals {
-  logging_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "logging"
+  logging_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/Logging"
   })
 }
 
 benchmark "logging" {
-  title       = "Cloud Logging"
+  title       = "Logging"
   description = "This benchmark provides a set of controls that detect Terraform GCP Cloud Logging resources deviating from security best practices."
 
   children = [
     control.logging_bucket_retention_policy_enabled
   ]
 
-  tags = local.logging_compliance_common_tags
+  tags = merge(local.logging_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "logging_bucket_retention_policy_enabled" {

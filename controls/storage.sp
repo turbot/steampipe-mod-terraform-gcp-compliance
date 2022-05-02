@@ -1,11 +1,11 @@
 locals {
-  storage_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "storage"
+  storage_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/Storage"
   })
 }
 
 benchmark "storage" {
-  title       = "Cloud Storage"
+  title       = "Storage"
   description = "This benchmark provides a set of controls that detect Terraform GCP Cloud Storage resources deviating from security best practices."
 
   children = [
@@ -13,7 +13,9 @@ benchmark "storage" {
     control.storage_bucket_uniform_access_enabled
   ]
 
-  tags = local.storage_compliance_common_tags
+  tags = merge(local.storage_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "storage_bucket_not_publicly_accessible" {

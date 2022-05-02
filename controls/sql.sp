@@ -1,11 +1,11 @@
 locals {
-  sql_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "sql"
+  sql_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/SQL"
   })
 }
 
 benchmark "sql" {
-  title       = "Cloud SQL"
+  title       = "SQL"
   description = "This benchmark provides a set of controls that detect Terraform GCP Cloud SQL resources deviating from security best practices."
 
   children = [
@@ -33,7 +33,9 @@ benchmark "sql" {
     control.sql_instance_sql_user_options_database_flag_not_configured
   ]
 
-  tags = local.sql_compliance_common_tags
+  tags = merge(local.sql_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "sql_instance_automated_backups_enabled" {

@@ -1,6 +1,6 @@
 locals {
-  compute_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "compute"
+  compute_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/Compute"
   })
 }
 
@@ -25,7 +25,9 @@ benchmark "compute" {
     control.compute_subnetwork_private_ip_google_access
   ]
 
-  tags = local.compute_compliance_common_tags
+  tags = merge(local.compute_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "compute_disk_encrypted_with_csk" {

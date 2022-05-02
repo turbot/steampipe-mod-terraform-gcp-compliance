@@ -1,6 +1,6 @@
 locals {
-  iam_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "iam"
+  iam_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/IAM"
   })
 }
 
@@ -12,7 +12,9 @@ benchmark "iam" {
     control.iam_service_account_gcp_managed_key
   ]
 
-  tags = local.iam_compliance_common_tags
+  tags = merge(local.iam_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "iam_service_account_gcp_managed_key" {
