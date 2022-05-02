@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "compute" {
-  title       = "Compute Engine"
+  title       = "Compute"
   description = "This benchmark provides a set of controls that detect Terraform GCP Compute Engine resources deviating from security best practices."
 
   children = [
