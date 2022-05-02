@@ -1,11 +1,11 @@
 locals {
-  kubernetes_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "kubernetes"
+  kubernetes_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/Kubernetes"
   })
 }
 
 benchmark "kubernetes" {
-  title       = "Kubernetes Engine"
+  title       = "Kubernetes"
   description = "This benchmark provides a set of controls that detect Terraform GCP Kubernetes Engine(GKE) resources deviating from security best practices."
 
   children = [
@@ -18,12 +18,13 @@ benchmark "kubernetes" {
     control.kubernetes_cluster_private_cluster_config_enabled
   ]
 
-  tags = local.kubernetes_compliance_common_tags
+  tags = merge(local.kubernetes_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "kubernetes_cluster_private_cluster_config_enabled" {
   title         = "Verify all GKE clusters are Private Clusters"
-  description   = ""
   sql           = query.kubernetes_cluster_private_cluster_config_enabled.sql
 
   tags = merge(local.kubernetes_compliance_common_tags, {

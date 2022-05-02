@@ -1,6 +1,6 @@
 locals {
-  bigquery_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "bigquery"
+  bigquery_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/BigQuery"
   })
 }
 
@@ -14,7 +14,9 @@ benchmark "bigquery" {
     control.bigquery_table_encrypted_with_cmk
   ]
 
-  tags = local.bigquery_compliance_common_tags
+  tags = merge(local.bigquery_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "bigquery_dataset_not_publicly_accessible" {

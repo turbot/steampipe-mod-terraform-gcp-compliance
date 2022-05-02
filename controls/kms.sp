@@ -1,6 +1,6 @@
 locals {
-  kms_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "kms"
+  kms_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/KMS"
   })
 }
 
@@ -13,7 +13,9 @@ benchmark "kms" {
     control.kms_key_rotated_within_100_day
   ]
 
-  tags = local.kms_compliance_common_tags
+  tags = merge(local.kms_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "kms_key_rotated_within_100_day" {
