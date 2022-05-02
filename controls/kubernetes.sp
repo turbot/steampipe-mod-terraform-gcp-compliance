@@ -25,7 +25,6 @@ benchmark "kubernetes" {
 
 control "kubernetes_cluster_private_cluster_config_enabled" {
   title         = "Verify all GKE clusters are Private Clusters"
-  description   = ""
   sql           = query.kubernetes_cluster_private_cluster_config_enabled.sql
 
   tags = merge(local.kubernetes_compliance_common_tags, {
