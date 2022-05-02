@@ -1,11 +1,11 @@
 locals {
-  dns_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "dns"
+  dns_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
+    service = "GCP/DNS"
   })
 }
 
 benchmark "dns" {
-  title       = "Cloud DNS"
+  title       = "DNS"
   description = "This benchmark provides a set of controls that detect Terraform GCP DNS resources deviating from security best practices."
 
   children = [
@@ -14,7 +14,9 @@ benchmark "dns" {
     control.dnssec_prevent_rsasha1_zsk
   ]
 
-  tags = local.dns_compliance_common_tags
+  tags = merge(local.dns_compliance_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "dns_managed_zone_dnssec_enabled" {

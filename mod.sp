@@ -1,3 +1,12 @@
+// Benchmarks and controls for specific services should override the "service" tag
+locals {
+  terraform_gcp_compliance_common_tags = {
+    category = "Compliance"
+    plugin   = "terraform"
+    service  = "GCP"
+  }
+}
+
 mod "terraform_gcp_compliance" {
   # Hub metadata
   title         = "Terraform GCP Compliance"
