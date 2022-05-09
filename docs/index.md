@@ -6,9 +6,9 @@ repository: "https://github.com/turbot/steampipe-mod-terraform-gcp-compliance"
 
 Run compliance and security controls to detect Terraform GCP resources deviating from security best practices prior to deployment in your GCP projects.
 
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/update-docs-dashboard/docs/terraform_gcp_compliance_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/update-docs-dashboard/docs/terraform_gcp_compliance_kubernetes_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/terraform_gcp_compliance_kubernetes_dashboard/main/docs/terraform_gcp_compliance_console_output.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/main/docs/terraform_gcp_compliance_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/main/docs/terraform_gcp_compliance_kubernetes_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/main/docs/terraform_gcp_compliance_console_output.png" width="50%" type="thumbnail"/>
 
 ## References
 

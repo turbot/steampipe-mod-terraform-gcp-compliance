@@ -6,7 +6,7 @@
 
 Run checks in a dashboard:
 
-![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/update-docs-dashboard/docs/terraform_gcp_compliance_dashboard.png)
+![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/main/docs/terraform_gcp_compliance_dashboard.png)
 
 Or in a terminal:
 
