@@ -1,3 +1,9 @@
+## v0.5 [2022-05-10]
+
+_Enhancements_
+
+- Updated docs/index.md and README with new dashboard screenshots and latest format. ([#20](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/20))
+
 ## v0.4 [2022-05-02]
 
 _Enhancements_
