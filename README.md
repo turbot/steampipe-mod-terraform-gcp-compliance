@@ -2,8 +2,6 @@
 
 50+ compliance and security controls to test your Terraform GCP resources against security best practices prior to deployment in your GCP projects.
 
-![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/main/docs/terraform_gcp_compliance_console_output.png)
-
 Run checks in a dashboard:
 
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-gcp-compliance/main/docs/terraform_gcp_compliance_dashboard.png)
