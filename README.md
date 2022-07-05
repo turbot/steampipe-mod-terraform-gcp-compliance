@@ -1,4 +1,4 @@
-# Terraform GCP Compliance
+# Terraform GCP Compliance Mod for Steampipe
 
 50+ compliance and security controls to test your Terraform GCP resources against security best practices prior to deployment in your GCP projects.
 
