@@ -1,3 +1,10 @@
+## v0.6 [2023-06-15]
+
+_What's new?_
+
+- Added `connection_name` in the common dimensions to group and filter findings. (see [var.common_dimensions](https://hub.steampipe.io/mods/turbot/terraform_gcp_compliance/variables)) ([#25](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/25))
+- Added `tags` as dimensions to group and filter findings. (see [var.tag_dimensions](https://hub.steampipe.io/mods/turbot/terraform_gcp_compliance/variables)) ([#25](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/25))
+
 ## v0.5 [2022-05-09]
 
 _Enhancements_
