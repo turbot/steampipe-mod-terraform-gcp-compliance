@@ -793,3 +793,122 @@ query "sql_instance_automated_backups_enabled" {
       type = 'google_sql_database_instance';
   EOQ
 }
+
+query "sql_instance_postgresql_pgaudit_database_flag_on" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cloudsql.enable_pgaudit' and (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'on' then 'ok' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'cloudsql.enable_pgaudit' and (flags ->> 'value') = 'on') then 'ok'
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cloudsql.enable_pgaudit' and (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'off' then 'alarm' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'cloudsql.enable_pgaudit' and (flags ->> 'value') = 'off') then 'alarm'
+        else 'alarm'
+      end as status,
+      name || case
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cloudsql.enable_pgaudit' and (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'on' then ' pgaudit database flag set to on'
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'cloudsql.enable_pgaudit' and (flags ->> 'value') = 'on') then ' pgaudit database flag set to on'
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cloudsql.enable_pgaudit' and (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'off' then ' pgaudit database flag set to off'
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'cloudsql.enable_pgaudit' and (flags ->> 'value') = 'off') then ' pgaudit database flag set to off'
+        else ' pgaudit database flag not set'
+      end || '.' reason
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_sql_database_instance' and
+      (arguments ->> 'database_version') like 'POSTGRES%';
+  EOQ
+}
+
+query "sql_instance_postgresql_log_min_error_statement_flag_set" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_min_error_statement' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('debug5', 'debug4', 'debug3', 'debug2', 'debug1', 'info', 'notice', 'warning', 'error') then 'ok' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_min_error_statement' and (flags ->> 'value')  in ('debug5', 'debug4', 'debug3', 'debug2', 'debug1', 'info', 'notice', 'warning', 'error')) then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_min_error_statement' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('debug5', 'debug4', 'debug3', 'debug2', 'debug1', 'info', 'notice', 'warning', 'error') then ' log min error statement database flag value set to debug5, debug4, debug3, debug2, debug1, info, notice, warning, error'
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_min_error_statement' and (flags ->> 'value') in ('debug5', 'debug4', 'debug3', 'debug2', 'debug1', 'info', 'notice', 'warning', 'error')) then ' log min error statement database flag value set to debug5, debug4, debug3, debug2, debug1, info, notice, warning, error'
+        else ' log min error statement database flag value not set'
+      end || '.' reason
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_sql_database_instance' and
+      (arguments ->> 'database_version') like 'POSTGRES%';
+  EOQ
+}
+
+query "sql_instance_postgresql_log_min_messages_flag_set" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_min_messages' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('fatal', 'panic', 'log', 'error', 'warning', 'notice', 'info', 'debug1', 'debug2', 'debug3', 'debug4', 'debug5') then 'ok' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_min_messages' and (flags ->> 'value') in ('fatal', 'panic', 'log', 'error', 'warning', 'notice', 'info', 'debug1', 'debug2', 'debug3', 'debug4', 'debug5')) then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_min_messages' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('fatal', 'panic', 'log', 'error', 'warning', 'notice', 'info', 'debug1', 'debug2', 'debug3', 'debug4', 'debug5') then ' log min messages database flag value set to fatal, panic, log, error, warning, notice, info, debug1, debug2, debug3, debug4, debug5'
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_min_messages' and (flags ->> 'value') in ('fatal', 'panic', 'log', 'error', 'warning', 'notice', 'info', 'debug1', 'debug2', 'debug3', 'debug4', 'debug5')) then ' log min messages database flag value set to fatal, panic, log, error, warning, notice, info, debug1, debug2, debug3, debug4, debug5'
+        else ' log min messages database flag value not set'
+      end || '.' reason
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_sql_database_instance' and
+      (arguments ->> 'database_version') like 'POSTGRES%';
+  EOQ
+}
+
+query "sql_instance_postgresql_log_statement_flag_set" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_statement' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('ddl', 'mod', 'all') then 'ok' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_statement' and (flags ->> 'value') in ('ddl', 'mod', 'all')) then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_statement' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('ddl', 'mod', 'all') then ' log min messages database flag value set to fatal, panic, log, error, warning, notice, info, debug1, debug2, debug3, debug4, debug5'
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_statement' and (flags ->> 'value') in ('ddl', 'mod', 'all')) then ' log min messages database flag value set to fatal, panic, log, error, warning, notice, info, debug1, debug2, debug3, debug4, debug5'
+        else ' log min messages database flag value not set'
+      end || '.' reason
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_sql_database_instance' and
+      (arguments ->> 'database_version') like 'POSTGRES%';
+  EOQ
+}
+
+query "sql_instance_sql_with_no_public_ip" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments -> 'settings' -> 'ip_configuration' ->> 'ipv4_enabled') is null then 'alarm'
+        when (arguments -> 'settings' -> 'ip_configuration' ->> 'ipv4_enabled')::boolean then 'alarm' 
+        else 'ok'
+      end as status,
+      name || case
+        when (arguments -> 'settings' -> 'ip_configuration' ->> 'ipv4_enabled') is null then ' ipv4_enabled is not defined'
+        when (arguments -> 'settings' -> 'ip_configuration' ->> 'ipv4_enabled')::boolean then ' public IP address configured'
+        else ' no public IP address configured'
+      end || '.' reason
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_sql_database_instance' and
+      (arguments ->> 'database_version') like 'SQLSERVER%';;
+  EOQ
+}

@@ -20,17 +20,22 @@ benchmark "sql" {
     control.sql_instance_postgresql_log_hostname_database_flag_configured,
     control.sql_instance_postgresql_log_lock_waits_database_flag_on,
     control.sql_instance_postgresql_log_min_duration_statement_database_flag_disabled,
+    control.sql_instance_postgresql_log_min_error_statement_flag_set,
+    control.sql_instance_postgresql_log_min_messages_flag_set,
     control.sql_instance_postgresql_log_parser_stats_database_flag_off,
     control.sql_instance_postgresql_log_planner_stats_database_flag_off,
+    control.sql_instance_postgresql_log_statement_flag_set,
     control.sql_instance_postgresql_log_statement_stats_database_flag_off,
     control.sql_instance_postgresql_log_temp_files_database_flag_0,
+    control.sql_instance_postgresql_pgaudit_database_flag_on,
     control.sql_instance_require_ssl_enabled,
     control.sql_instance_sql_3625_trace_database_flag_off,
     control.sql_instance_sql_contained_database_authentication_database_flag_off,
     control.sql_instance_sql_cross_db_ownership_chaining_database_flag_off,
     control.sql_instance_sql_external_scripts_enabled_database_flag_off,
     control.sql_instance_sql_remote_access_database_flag_off,
-    control.sql_instance_sql_user_options_database_flag_not_configured
+    control.sql_instance_sql_user_options_database_flag_not_configured,
+    control.sql_instance_sql_with_no_public_ip
   ]
 
   tags = merge(local.sql_compliance_common_tags, {
@@ -323,4 +328,44 @@ control "sql_instance_sql_user_options_database_flag_not_configured" {
     cis_level   = "1"
     cis_type    = "automated"
   })
+}
+
+control "sql_instance_postgresql_pgaudit_database_flag_on" {
+  title       = "GCP SQL PostgreSQL instance should have pgaudit database flag set to on"
+  description = "This control checks whether the pgaudit database flag for Cloud SQL PostgreSQL instance is set to on."
+  query       = query.sql_instance_postgresql_pgaudit_database_flag_on
+
+  tags = local.sql_compliance_common_tags
+}
+
+control "sql_instance_postgresql_log_min_messages_flag_set" {
+  title       = "GCP SQL PostgreSQL instance should have log_min_messages database flag set to a valid value"
+  description = "This control checks whether the log_min_messages database flag for Cloud SQL PostgreSQL instance is set to a valid value."
+  query       = query.sql_instance_postgresql_log_min_messages_flag_set
+
+  tags = local.sql_compliance_common_tags
+}
+
+control "sql_instance_postgresql_log_min_error_statement_flag_set" {
+  title       = "GCP SQL PostgreSQL instance should have log_min_error_statement database flag set to ERROR or lower"
+  description = "This control checks whether the log_min_error_statement database flag for Cloud SQL PostgreSQL instance is set to ERROR or lower."
+  query       = query.sql_instance_postgresql_log_min_error_statement_flag_set
+
+  tags = local.sql_compliance_common_tags
+}
+
+control "sql_instance_postgresql_log_statement_flag_set" {
+  title       = "GCP SQL PostgreSQL instance should log SQL statements"
+  description = "This control checks whether the log_statement database flag for Cloud SQL PostgreSQL instance is set to log SQL statements."
+  query       = query.sql_instance_postgresql_log_statement_flag_set
+
+  tags = local.sql_compliance_common_tags
+}
+
+control "sql_instance_sql_with_no_public_ip" {
+  title       = "GCP SQL instance should not have public IP address"
+  description = "This control checks whether the GCP SQL instance has a public IP address."
+  query       = query.sql_instance_sql_with_no_public_ip
+
+  tags = local.sql_compliance_common_tags
 }
