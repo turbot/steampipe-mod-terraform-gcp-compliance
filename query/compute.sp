@@ -140,13 +140,16 @@ query "compute_subnetwork_flow_log_enabled" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments -> 'log_config') is not null then 'ok' else 'alarm'
+        when (arguments ->> 'purpose') in ('REGIONAL_MANAGED_PROXY', 'GLOBAL_MANAGED_PROXY') then 'skip'
+        when (arguments -> 'log_config') is not null then 'ok'
+        else 'alarm'
       end as status,
       name || case
+        when (arguments ->> 'purpose') in ('REGIONAL_MANAGED_PROXY', 'GLOBAL_MANAGED_PROXY') then ' flow logging not supported'
         when (arguments -> 'log_config') is not null then ' flow logging enabled'
         else ' flow logging disabled'
       end || '.' reason
-      ${local.common_dimensions_sql}
+      --${local.common_dimensions_sql}
     from
       terraform_resource
     where

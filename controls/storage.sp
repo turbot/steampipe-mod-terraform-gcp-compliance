@@ -10,7 +10,8 @@ benchmark "storage" {
 
   children = [
     control.storage_bucket_not_publicly_accessible,
-    control.storage_bucket_uniform_access_enabled
+    control.storage_bucket_uniform_access_enabled,
+    control.storage_bucket_public_access_prevention_enforced,
   ]
 
   tags = merge(local.storage_compliance_common_tags, {
@@ -42,4 +43,12 @@ control "storage_bucket_uniform_access_enabled" {
     cis_level   = "2"
     cis_type    = "automated"
   })
+}
+
+control "storage_bucket_public_access_prevention_enforced" {
+  title       = "Storage buckets public access prevention should be enforced"
+  description = "It is recommended that public access prevention should be enforced for storage buckets."
+  query       = query.storage_bucket_public_access_prevention_enforced
+
+  tags = local.storage_compliance_common_tags
 }
