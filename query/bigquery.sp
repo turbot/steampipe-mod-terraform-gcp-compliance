@@ -62,3 +62,45 @@ query "bigquery_dataset_encrypted_with_cmk" {
       type = 'google_bigquery_dataset';
   EOQ
 }
+
+query "bigquery_instance_encrypted_with_kms_cmk" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments -> 'cluster' ->> 'kms_key_name') is null then 'alarm' 
+        else 'ok'
+      end as status,
+      name || case
+        when (arguments -> 'cluster' ->> 'kms_key_name') is null then ' not encrypted with kms cmk' 
+        else ' encrypted with kms cmk'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_bigtable_instance';
+  EOQ
+}
+
+query "bigquery_table_not_publicly_accessible" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm' 
+        else 'ok'
+      end as status,
+      name || case
+        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then ' is publicly accessible'
+        else ' is not publicly accessible'
+      end || '.' reason      
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type in ('google_bigquery_table_iam_binding','google_bigquery_table_iam_member');
+  EOQ
+}

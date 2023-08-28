@@ -59,3 +59,19 @@ control "bigquery_table_encrypted_with_cmk" {
     cis_level   = "2"
   })
 }
+
+control "bigquery_instance_encrypted_with_kms_cmk" {
+  title       = "Big Query Instance should be encrypted with KMS CMK"
+  description = "This control checks whether the Big Query Instance is encrypted with KMS CMK"
+  query       = query.bigquery_instance_encrypted_with_kms_cmk
+
+  tags = local.bigquery_compliance_common_tags
+}
+
+control "bigquery_table_not_publicly_accessible" {
+  title       = "Big Query Table should not be publicly accessible"
+  description = "This control checks whether the Big Query Table is publicly accessible"
+  query       = query.bigquery_table_not_publicly_accessible
+
+  tags = local.bigquery_compliance_common_tags
+}

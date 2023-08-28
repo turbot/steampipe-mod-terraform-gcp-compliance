@@ -33,3 +33,11 @@ control "dataproc_cluster_public_ip_disabled" {
 
   tags = local.dataproc_compliance_common_tags
 }
+
+control "dataproc_cluster_not_publicly_accessible" {
+  title       = "Dataproc cluster should not be publicly accessible"
+  description = "This control checks whether Dataproc cluster is publicly accessible."
+  query       = query.dataproc_cluster_not_publicly_accessible
+
+  tags = local.dataproc_compliance_common_tags
+}
