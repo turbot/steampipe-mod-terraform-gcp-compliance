@@ -41,3 +41,24 @@ query "storage_bucket_uniform_access_enabled" {
       type = 'google_storage_bucket';
   EOQ
 }
+
+query "storage_bucket_public_access_prevention_enforced" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments ->> 'public_access_prevention') = 'enforced' then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when (arguments ->> 'public_access_prevention') = 'enforced' then ' public access prevention enforced'
+        else ' public access prevention not enforced'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_storage_bucket';
+  EOQ
+}
