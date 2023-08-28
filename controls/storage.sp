@@ -10,8 +10,9 @@ benchmark "storage" {
 
   children = [
     control.storage_bucket_not_publicly_accessible,
-    control.storage_bucket_uniform_access_enabled,
     control.storage_bucket_public_access_prevention_enforced,
+    control.storage_bucket_uniform_access_enabled,
+    control.storage_bucket_versioning_enabled
   ]
 
   tags = merge(local.storage_compliance_common_tags, {
@@ -49,6 +50,14 @@ control "storage_bucket_public_access_prevention_enforced" {
   title       = "Storage buckets public access prevention should be enforced"
   description = "It is recommended that public access prevention should be enforced for storage buckets."
   query       = query.storage_bucket_public_access_prevention_enforced
+
+  tags = local.storage_compliance_common_tags
+}
+
+control "storage_bucket_versioning_enabled" {
+  title       = "Storage buckets versioning should be enabled"
+  description = "It is recommended that versioning should be enabled for storage buckets."
+  query       = query.storage_bucket_versioning_enabled
 
   tags = local.storage_compliance_common_tags
 }

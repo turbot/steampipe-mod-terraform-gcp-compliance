@@ -62,3 +62,24 @@ query "storage_bucket_public_access_prevention_enforced" {
       type = 'google_storage_bucket';
   EOQ
 }
+
+query "storage_bucket_versioning_enabled" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments -> 'versioning' ->> 'enabled') = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when (arguments -> 'versioning' ->> 'enabled') = 'true' then ' versioning enabled'
+        else ' versioning disabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_storage_bucket';
+  EOQ
+}
