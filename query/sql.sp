@@ -912,3 +912,23 @@ query "sql_instance_sql_with_no_public_ip" {
       (arguments ->> 'database_version') like 'SQLSERVER%';;
   EOQ
 }
+
+query "sql_instance_using_latest_major_database_version" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments ->> 'database_version') in ('POSTGRES_15','MYSQL_8_0','SQLSERVER_2019_STANDARD','SQLSERVER_2019_WEB','SQLSERVER_2019_ENTERPRISE','SQLSERVER_2019_EXPRESS') then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when (arguments ->> 'database_version') in ('POSTGRES_15','MYSQL_8_0','SQLSERVER_2019_STANDARD','SQLSERVER_2019_WEB','SQLSERVER_2019_ENTERPRISE','SQLSERVER_2019_EXPRESS') then ' latest major database version in use'
+        else ' latest major database version not in use'
+      end || '.' reason
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_sql_database_instance';
+  EOQ
+}

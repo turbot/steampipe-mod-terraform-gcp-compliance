@@ -35,7 +35,8 @@ benchmark "sql" {
     control.sql_instance_sql_external_scripts_enabled_database_flag_off,
     control.sql_instance_sql_remote_access_database_flag_off,
     control.sql_instance_sql_user_options_database_flag_not_configured,
-    control.sql_instance_sql_with_no_public_ip
+    control.sql_instance_sql_with_no_public_ip,
+    control.sql_instance_using_latest_major_database_version
   ]
 
   tags = merge(local.sql_compliance_common_tags, {
@@ -366,6 +367,14 @@ control "sql_instance_sql_with_no_public_ip" {
   title       = "GCP SQL instance should not have public IP address"
   description = "This control checks whether the GCP SQL instance has a public IP address."
   query       = query.sql_instance_sql_with_no_public_ip
+
+  tags = local.sql_compliance_common_tags
+}
+
+control "sql_instance_using_latest_major_database_version" {
+  title = "GCP SQL instance should be using latest major database version"
+  description = "This control checks whether the GCP SQL instance is using the latest major database version."
+  query = query.sql_instance_using_latest_major_database_version
 
   tags = local.sql_compliance_common_tags
 }
