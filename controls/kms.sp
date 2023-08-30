@@ -9,8 +9,9 @@ benchmark "kms" {
   description = "This benchmark provides a set of controls that detect Terraform GCP KMS resources deviating from security best practices."
 
   children = [
-    control.kms_key_rotated_within_90_day,
-    control.kms_key_rotated_within_100_day
+    control.kms_key_not_publicly_accessible,
+    control.kms_key_rotated_within_100_day,
+    control.kms_key_rotated_within_90_day
   ]
 
   tags = merge(local.kms_compliance_common_tags, {
@@ -39,4 +40,12 @@ control "kms_key_rotated_within_90_day" {
     cis_level   = "1"
     cis_type    = "automated"
   })
+}
+
+control "kms_key_not_publicly_accessible" {
+  title       = "KMS keys should not be publicly accessible"
+  description = "This control checks whether the KMS keys are publicly accessible."
+  query       = query.kms_key_not_publicly_accessible
+
+  tags = local.kms_compliance_common_tags
 }

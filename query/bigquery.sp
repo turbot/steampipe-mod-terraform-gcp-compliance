@@ -7,7 +7,7 @@ query "bigquery_table_encrypted_with_cmk" {
         else 'ok'
       end as status,
       name || case
-        when (arguments -> 'encryption_configuration') is null then ' encrypted with Google managed cryptographic keys' 
+        when (arguments -> 'encryption_configuration') is null then ' not encrypted with customer-managed encryption keys' 
         else ' encrypted with customer-managed encryption keys'
       end || '.' reason
       ${local.tag_dimensions_sql}
