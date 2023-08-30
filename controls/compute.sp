@@ -11,13 +11,14 @@ benchmark "compute" {
   children = [
     control.compute_disk_encrypted_with_csk,
     control.compute_instance_block_project_wide_ssh_enabled,
+    control.compute_instance_boot_disk_encryption_enabled,
     control.compute_instance_confidential_computing_enabled,
     control.compute_instance_ip_forwarding_disabled,
     control.compute_instance_oslogin_enabled,
     control.compute_instance_serial_port_connection_disabled,
     control.compute_instance_shielded_vm_enabled,
-    control.compute_instance_with_no_default_service_account_with_full_access,
     control.compute_instance_with_no_default_service_account,
+    control.compute_instance_with_no_default_service_account_with_full_access,
     control.compute_instance_with_no_public_ip_addresses,
     control.compute_network_contains_no_default_network,
     control.compute_network_contains_no_legacy_network,
@@ -202,4 +203,20 @@ control "compute_subnetwork_private_ip_google_access" {
   tags = merge(local.compute_compliance_common_tags, {
     cft_scorecard_v1 = "true"
   })
+}
+
+control "compute_instance_boot_disk_encryption_enabled" {
+  title       = "Compute instance boot disk encryption should be enabled"
+  description = "This control checks whether Compute instance boot disk encryption is enabled."
+  query       = query.compute_instance_boot_disk_encryption_enabled
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_instance_block_project_wide_ssh_key_enabled" {
+  title       = "Ensure 'Block Project-wide SSH keys' is enabled for VM instances"
+  description = "This control checks whether 'Block Project-wide SSH keys' is enabled for VM instances."
+  query       = query.compute_instance_block_project_wide_ssh_key_enabled
+
+  tags = local.compute_compliance_common_tags
 }
