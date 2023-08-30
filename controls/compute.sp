@@ -10,6 +10,12 @@ benchmark "compute" {
 
   children = [
     control.compute_disk_encrypted_with_csk,
+    control.compute_firewall_allow_ftp_port_20_ingress,
+    control.compute_firewall_allow_ftp_port_21_ingress,
+    control.compute_firewall_allow_http_port_80_ingress,
+    // control.compute_firewall_allow_mysql_port_3306_ingress,
+    // control.compute_firewall_allow_rdp_port_3389_ingress,
+    // control.compute_firewall_allow_ssh_port_22_ingress,
     control.compute_instance_block_project_wide_ssh_enabled,
     control.compute_instance_boot_disk_encryption_enabled,
     control.compute_instance_confidential_computing_enabled,
@@ -22,8 +28,10 @@ benchmark "compute" {
     control.compute_instance_with_no_public_ip_addresses,
     control.compute_network_contains_no_default_network,
     control.compute_network_contains_no_legacy_network,
+    control.compute_security_policy_prevent_message_lookup,
     control.compute_subnetwork_flow_log_enabled,
-    control.compute_subnetwork_private_ip_google_access
+    control.compute_subnetwork_private_ip_google_access,
+    control.compute_subnetwork_private_ipv6_google_access
   ]
 
   tags = merge(local.compute_compliance_common_tags, {
@@ -209,6 +217,78 @@ control "compute_instance_boot_disk_encryption_enabled" {
   title       = "Compute instance boot disk encryption should be enabled"
   description = "This control checks whether Compute instance boot disk encryption is enabled."
   query       = query.compute_instance_boot_disk_encryption_enabled
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_instance_boot_disk_encryption_enabled" {
+  title       = "Compute instance boot disk encryption should be enabled"
+  description = "This control checks whether Compute instance boot disk encryption is enabled."
+  query       = query.compute_instance_boot_disk_encryption_enabled
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_security_policy_prevent_message_lookup" {
+  title       = "Cloud Armor prevents message lookup in Log4j2. See CVE-2021-44228 aka log4jshell"
+  description = "This control checks if Cloud Armor is configured to prevent message lookup in Log4j2. See CVE-2021-44228 aka log4jshell"
+  query       = query.compute_security_policy_prevent_message_lookup
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_subnetwork_private_ipv6_google_access" {
+  title       = "Compute Subnetworks should have Private IPv6 Google Access enabled"
+  description = "This control checks if Compute Subnetworks have Private IPv6 Google Access enabled"
+  query       = query.compute_subnetwork_private_ipv6_google_access
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_firewall_allow_http_port_80_ingress" {
+  title       = "Google compute firewall ingress does not allow unrestricted http port 80 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted http port 80 access."
+  query       = query.compute_firewall_allow_http_port_80_ingress
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_firewall_allow_ftp_port_20_ingress" {
+  title       = "Google compute firewall ingress does not allow unrestricted ftp port 20 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted ftp port 20 access."
+  query       = query.compute_firewall_allow_ftp_port_20_ingress
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_firewall_allow_ftp_port_21_ingress" {
+  title       = "Google compute firewall ingress does not allow unrestricted ftp port 21 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted ftp port 21 access."
+  query       = query.compute_firewall_allow_ftp_port_21_ingress
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_firewall_allow_ssh_port_22_ingress" {
+  title = "Google compute firewall ingress does not allow unrestricted ssh port 22 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted ssh port 22 access."
+  query       = query.compute_firewall_allow_ssh_port_22_ingress
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_firewall_allow_rdp_port_3389_ingress" {
+  title       = "Google compute firewall ingress does not allow unrestricted rdp port 3389 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted rdp port 3389 access."
+  query       = query.compute_firewall_allow_rdp_port_3389_ingress
+
+  tags = local.compute_compliance_common_tags
+}
+
+control "compute_firewall_allow_mysql_port_3306_ingress" {
+  title       = "Google compute firewall ingress does not allow unrestricted mysql port 3306 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted mysql port 3306 access."
+  query       = query.compute_firewall_allow_mysql_port_3306_ingress
 
   tags = local.compute_compliance_common_tags
 }
