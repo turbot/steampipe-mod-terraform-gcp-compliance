@@ -262,7 +262,7 @@ control "compute_firewall_allow_ftp_port_21_ingress" {
 }
 
 control "compute_firewall_allow_ssh_port_22_ingress" {
-  title = "Google compute firewall ingress does not allow unrestricted ssh port 22 access"
+  title       = "Google compute firewall ingress does not allow unrestricted ssh port 22 access"
   description = "This control checks if Google compute firewall ingress does not allow unrestricted ssh port 22 access."
   query       = query.compute_firewall_allow_ssh_port_22_ingress
 
