@@ -28,21 +28,27 @@ query "compute_instance_with_no_default_service_account" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments -> 'service_account') is null then 'alarm'
-        when (arguments -> 'service_account' ->> 'email') like '%-compute@developer.gserviceaccount.com' then 'ok'
+        when (arguments -> 'service_account') is null and ('argument' -> 'source_instance_template') is null then 'skip'
+        when (arguments -> 'service_account') is null and ('argument' -> 'source_instance_template') is not null then 'skip'
+        when (arguments -> 'service_account') is not null and (arguments -> 'service_account' ->> 'email') is null then 'alarm'
+        when (arguments ->> 'name') like 'gke-%' and (arguments -> 'service_account' ->> 'email') like '%-compute@developer.gserviceaccount.com' then 'ok'
+        when (arguments -> 'service_account' ->> 'email') not like '%-compute@developer.gserviceaccount.com' then 'ok'
         else 'alarm'
       end status,
       name || case
-        when (arguments -> 'service_account') is null then ' not configured with default service account'
-        when (arguments -> 'service_account' ->> 'email') like '%-compute@developer.gserviceaccount.com' then ' configured to use default service account'
-        else ' not configured with default service account'
+        when (arguments -> 'service_account') is null and ('argument' -> 'source_instance_template') is null then ' no service account configured'
+        when (arguments -> 'service_account') is null and ('argument' -> 'source_instance_template') then ' has no service account in the instance template'
+        when (arguments -> 'service_account') is not null and (arguments -> 'service_account' ->> 'email') is null then ' does not have email configured in service account'
+        when (arguments ->> 'name') like 'gke-%' then ' configured to use default service account'
+        when (arguments -> 'service_account' ->> 'email') not like '%-compute@developer.gserviceaccount.com' then ' not use default service account'
+        else ' use default service account'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       terraform_resource
     where
-      type = 'google_compute_instance';
+      type in ('google_compute_instance', 'google_compute_instance_from_template', 'google_compute_instance_template');
   EOQ
 }
 
@@ -248,31 +254,6 @@ query "compute_instance_shielded_vm_enabled" {
   EOQ
 }
 
-query "compute_instance_block_project_wide_ssh_enabled" {
-  sql = <<-EOQ
-    select
-      type || ' ' || name as resource,
-      case
-        when (arguments -> 'metadata') is null then 'alarm'
-        when (arguments -> 'metadata' -> 'block-project-ssh-keys') is null then 'alarm'
-        when (arguments -> 'metadata' ->> 'block-project-ssh-keys') = 'true' then 'ok'
-        else 'alarm'
-      end status,
-      name || case
-        when (arguments -> 'metadata') is null then ' ''metadata'' property is not defined'
-        when (arguments -> 'metadata' -> 'block-project-ssh-keys') is null then ' ''block-project-ssh-keys'' property is not defined'
-        when (arguments -> 'metadata' ->> 'block-project-ssh-keys') = 'true' then ' has Block Project-wide SSH keys enabled'
-        else ' has Block Project-wide SSH keys disabled'
-      end || '.' reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      terraform_resource
-    where
-      type = 'google_compute_instance';
-  EOQ
-}
-
 query "compute_instance_ip_forwarding_disabled" {
   sql = <<-EOQ
     select
@@ -314,5 +295,57 @@ query "compute_instance_with_no_public_ip_addresses" {
       terraform_resource
     where
       type = 'google_compute_instance';
+  EOQ
+}
+
+query "compute_instance_boot_disk_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments -> 'boot_disk' -> 'disk_encryption_key_raw') is not null then 'ok'
+        when (arguments -> 'boot_disk' -> 'kms_key_self_link') is not null then 'ok'
+        else 'alarm'
+      end status,
+      name || case
+        when (arguments -> 'boot_disk' -> 'disk_encryption_key_raw') is not null then ' boot disk encryption enabled'
+        when (arguments -> 'boot_disk' -> 'kms_key_self_link') is not null then ' boot disk encryption enabled'
+        else ' boot disk encryption disabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_compute_instance';
+  EOQ
+}
+
+query "compute_instance_block_project_wide_ssh_enabled" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when ((arguments ->> 'source_instance_template') is not null and (arguments ->> 'metadata') is null) then 'skip'
+        when ((arguments ->> 'source_instance_template') is not null and (arguments -> 'metadata' ->> 'block-project-ssh-keys') is null) then 'skip'
+        when ((arguments ->> 'source_instance_template') is null and (arguments ->> 'metadata') is null) then 'skip'
+        when ((arguments ->> 'source_instance_template') is null and (arguments -> 'metadata' ->> 'block-project-ssh-keys') is null) then 'skip'
+        when (arguments -> 'metadata' -> 'block-project-ssh-keys')::bool then 'ok'
+        else 'alarm'
+      end status,
+      name || case
+        when ((arguments ->> 'source_instance_template') is not null and (arguments ->> 'metadata') is null) then ' underlying source template is unknown'
+        when ((arguments ->> 'source_instance_template') is not null and (arguments -> 'metadata' ->> 'block-project-ssh-keys') is null) then ' underlying source template is unknown'
+        when ((arguments ->> 'source_instance_template') is null and (arguments ->> 'metadata') is null) then ' block project-wide SSH keys not set'
+        when ((arguments ->> 'source_instance_template') is null and (arguments -> 'metadata' ->> 'block-project-ssh-keys') is null) then ' block project-wide SSH keys not set'
+        when (arguments -> 'metadata' -> 'block-project-ssh-keys')::bool then ' block project-wide SSH keys enabled'
+        else ' block project-wide SSH keys disabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type in ('google_compute_instance', 'google_compute_instance_template', 'google_compute_instance_from_template');
   EOQ
 }

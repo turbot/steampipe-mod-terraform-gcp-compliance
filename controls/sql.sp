@@ -28,6 +28,7 @@ benchmark "sql" {
     control.sql_instance_postgresql_log_statement_stats_database_flag_off,
     control.sql_instance_postgresql_log_temp_files_database_flag_0,
     control.sql_instance_postgresql_pgaudit_database_flag_on,
+    control.sql_instance_publicly_accessible,
     control.sql_instance_require_ssl_enabled,
     control.sql_instance_sql_3625_trace_database_flag_off,
     control.sql_instance_sql_contained_database_authentication_database_flag_off,
@@ -375,6 +376,14 @@ control "sql_instance_using_latest_major_database_version" {
   title = "GCP SQL instance should be using latest major database version"
   description = "This control checks whether the GCP SQL instance is using the latest major database version."
   query = query.sql_instance_using_latest_major_database_version
+
+  tags = local.sql_compliance_common_tags
+}
+
+control "sql_instance_publicly_accessible" {
+  title = "GCP SQL instance should not be publicly accessible"
+  description = "This control checks whether the GCP SQL instance is publicly accessible."
+  query = query.sql_instance_publicly_accessible
 
   tags = local.sql_compliance_common_tags
 }

@@ -40,6 +40,26 @@ query "kms_key_rotated_within_90_day" {
   EOQ
 }
 
+query "kms_key_prevent_destroy_enabled" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (lifecycle ->> 'prevent_destroy')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when (lifecycle ->> 'prevent_destroy')::bool then ' prevent destroy enabled'
+        else ' prevent destroy disabled'
+      end || '.' reason
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_kms_crypto_key';
+  EOQ
+}
+
 query "kms_key_not_publicly_accessible" {
   sql = <<-EOQ
     select

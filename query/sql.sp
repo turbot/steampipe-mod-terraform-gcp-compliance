@@ -15,7 +15,7 @@ query "sql_instance_postgresql_log_statement_stats_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -53,7 +53,7 @@ query "sql_instance_sql_cross_db_ownership_chaining_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'SQLSERVER%'
         then ' not a SQL Server database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -91,7 +91,7 @@ query "sql_instance_postgresql_log_connections_database_flag_on" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -129,7 +129,7 @@ query "sql_instance_postgresql_log_parser_stats_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -195,7 +195,7 @@ query "sql_instance_sql_external_scripts_enabled_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'SQLSERVER%'
         then ' not a SQL Server database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -233,7 +233,7 @@ query "sql_instance_postgresql_log_hostname_database_flag_configured" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -261,7 +261,7 @@ query "sql_instance_mysql_skip_show_database_flag_on" {
       case
         when coalesce(trim((arguments ->> 'database_version')), '') = '' then 'alarm'
         when (arguments ->> 'database_version') not like 'MYSQL%' then 'skip'
-        when (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'skip_show_database' and 
+        when (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'skip_show_database' and
           (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'on'
         then 'ok'
         else 'alarm'
@@ -271,7 +271,7 @@ query "sql_instance_mysql_skip_show_database_flag_on" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'MYSQL%'
         then ' not a MySQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -309,7 +309,7 @@ query "sql_instance_sql_3625_trace_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'SQLSERVER%'
         then ' not a SQL Server database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -347,7 +347,7 @@ query "sql_instance_postgresql_log_temp_files_database_flag_0" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -385,7 +385,7 @@ query "sql_instance_sql_remote_access_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'SQLSERVER%'
         then ' not a SQL Server database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -423,7 +423,7 @@ query "sql_instance_postgresql_log_planner_stats_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -484,7 +484,7 @@ query "sql_instance_postgresql_log_checkpoints_database_flag_on" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -522,7 +522,7 @@ query "sql_instance_postgresql_log_disconnections_database_flag_on" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -560,7 +560,7 @@ query "sql_instance_postgresql_log_executor_stats_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -598,7 +598,7 @@ query "sql_instance_postgresql_log_min_duration_statement_database_flag_disabled
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -636,7 +636,7 @@ query "sql_instance_postgresql_log_duration_database_flag_on" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -674,7 +674,7 @@ query "sql_instance_sql_contained_database_authentication_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'SQLSERVER%'
         then ' not a SQL Server database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -712,7 +712,7 @@ query "sql_instance_postgresql_log_lock_waits_database_flag_on" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'POSTGRES%'
         then ' not a PostgreSQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -750,7 +750,7 @@ query "sql_instance_mysql_local_infile_database_flag_off" {
         then ' ''database_version'' is not defined'
         when (arguments ->> 'database_version') not like 'MYSQL%'
         then ' not a MySQL database'
-        when (arguments -> 'settings') is null then ' ''settings'' is not defined' 
+        when (arguments -> 'settings') is null then ' ''settings'' is not defined'
         when (arguments -> 'settings' -> 'database_flags') is null then ' ''settings.database_flags'' is not defined'
         when coalesce(trim((arguments -> 'settings' -> 'database_flags' ->> 'name')), '') = ''
         then ' ''settings.database_flags.name'' is not defined'
@@ -799,9 +799,9 @@ query "sql_instance_postgresql_pgaudit_database_flag_on" {
     select
       type || ' ' || name as resource,
       case
-        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cloudsql.enable_pgaudit' and (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'on' then 'ok' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cloudsql.enable_pgaudit' and (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'on' then 'ok'
         when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'cloudsql.enable_pgaudit' and (flags ->> 'value') = 'on') then 'ok'
-        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cloudsql.enable_pgaudit' and (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'off' then 'alarm' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'cloudsql.enable_pgaudit' and (arguments -> 'settings' -> 'database_flags' ->> 'value') = 'off' then 'alarm'
         when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'cloudsql.enable_pgaudit' and (flags ->> 'value') = 'off') then 'alarm'
         else 'alarm'
       end as status,
@@ -826,7 +826,7 @@ query "sql_instance_postgresql_log_min_error_statement_flag_set" {
     select
       type || ' ' || name as resource,
       case
-        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_min_error_statement' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('debug5', 'debug4', 'debug3', 'debug2', 'debug1', 'info', 'notice', 'warning', 'error') then 'ok' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_min_error_statement' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('debug5', 'debug4', 'debug3', 'debug2', 'debug1', 'info', 'notice', 'warning', 'error') then 'ok'
         when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_min_error_statement' and (flags ->> 'value')  in ('debug5', 'debug4', 'debug3', 'debug2', 'debug1', 'info', 'notice', 'warning', 'error')) then 'ok'
         else 'alarm'
       end as status,
@@ -849,7 +849,7 @@ query "sql_instance_postgresql_log_min_messages_flag_set" {
     select
       type || ' ' || name as resource,
       case
-        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_min_messages' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('fatal', 'panic', 'log', 'error', 'warning', 'notice', 'info', 'debug1', 'debug2', 'debug3', 'debug4', 'debug5') then 'ok' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_min_messages' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('fatal', 'panic', 'log', 'error', 'warning', 'notice', 'info', 'debug1', 'debug2', 'debug3', 'debug4', 'debug5') then 'ok'
         when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_min_messages' and (flags ->> 'value') in ('fatal', 'panic', 'log', 'error', 'warning', 'notice', 'info', 'debug1', 'debug2', 'debug3', 'debug4', 'debug5')) then 'ok'
         else 'alarm'
       end as status,
@@ -872,7 +872,7 @@ query "sql_instance_postgresql_log_statement_flag_set" {
     select
       type || ' ' || name as resource,
       case
-        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_statement' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('ddl', 'mod', 'all') then 'ok' 
+        when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'object' and (arguments -> 'settings' -> 'database_flags' ->> 'name') = 'log_statement' and (arguments -> 'settings' -> 'database_flags' ->> 'value') in ('ddl', 'mod', 'all') then 'ok'
         when jsonb_typeof(arguments -> 'settings' -> 'database_flags') = 'array' and exists(select 1 from jsonb_array_elements(arguments -> 'settings' -> 'database_flags') as flags where (flags ->> 'name') = 'log_statement' and (flags ->> 'value') in ('ddl', 'mod', 'all')) then 'ok'
         else 'alarm'
       end as status,
@@ -896,7 +896,7 @@ query "sql_instance_sql_with_no_public_ip" {
       type || ' ' || name as resource,
       case
         when (arguments -> 'settings' -> 'ip_configuration' ->> 'ipv4_enabled') is null then 'alarm'
-        when (arguments -> 'settings' -> 'ip_configuration' ->> 'ipv4_enabled')::boolean then 'alarm' 
+        when (arguments -> 'settings' -> 'ip_configuration' ->> 'ipv4_enabled')::boolean then 'alarm'
         else 'ok'
       end as status,
       name || case
@@ -924,6 +924,32 @@ query "sql_instance_using_latest_major_database_version" {
       name || case
         when (arguments ->> 'database_version') in ('POSTGRES_15','MYSQL_8_0','SQLSERVER_2019_STANDARD','SQLSERVER_2019_WEB','SQLSERVER_2019_ENTERPRISE','SQLSERVER_2019_EXPRESS') then ' latest major database version in use'
         else ' latest major database version not in use'
+      end || '.' reason
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_sql_database_instance';
+  EOQ
+}
+
+query "sql_instance_publicly_accessible" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments -> 'settings') is null then 'ok'
+        when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is not null then 'alarm'
+        when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is null then 'ok'
+        when (arguments -> 'settings' -> 'ip_configuration' -> 'authorized_networks' ->> 'value') like '%/0' then 'alarm'
+        else 'ok'
+      end as status,
+      name || case
+        when (arguments -> 'settings') is null then ' no settings found'
+        when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is null then ' authorized network set in dynamic mode'
+        when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is not null then ' authorized network not set'
+        when (arguments -> 'settings' -> 'ip_configuration' -> 'authorized_networks' ->> 'value') like '%/0' then ' publicly accessible'
+        else ' not publicly accessible'
       end || '.' reason
       ${local.common_dimensions_sql}
     from
