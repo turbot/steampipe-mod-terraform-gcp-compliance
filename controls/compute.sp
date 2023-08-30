@@ -212,11 +212,3 @@ control "compute_instance_boot_disk_encryption_enabled" {
 
   tags = local.compute_compliance_common_tags
 }
-
-control "compute_instance_block_project_wide_ssh_key_enabled" {
-  title       = "Ensure 'Block Project-wide SSH keys' is enabled for VM instances"
-  description = "This control checks whether 'Block Project-wide SSH keys' is enabled for VM instances."
-  query       = query.compute_instance_block_project_wide_ssh_key_enabled
-
-  tags = local.compute_compliance_common_tags
-}
