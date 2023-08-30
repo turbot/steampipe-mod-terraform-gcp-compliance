@@ -397,7 +397,7 @@ query "kubernetes_cluster_alias_ip_range_enabled" {
   EOQ
 }
 
-query "kubernetes_cluster_intranode_visibility_enabled" {
+query "kubernetes_cluster_intranodal_visibility_enabled" {
   sql = <<-EOQ
     select
       type || ' ' || name as resource,
