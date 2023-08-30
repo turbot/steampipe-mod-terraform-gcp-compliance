@@ -16,7 +16,7 @@ benchmark "kubernetes" {
     control.kubernetes_cluster_binary_auth_enabled,
     control.kubernetes_cluster_client_certificate_authentication_disabled,
     control.kubernetes_cluster_control_plane_restrict_public_access,
-    control.kubernetes_cluster_cos_node_image
+    control.kubernetes_cluster_cos_node_image,
     control.kubernetes_cluster_intranodal_visibility_enabled,
     control.kubernetes_cluster_legacy_abac_enabled,
     control.kubernetes_cluster_legacy_endpoints_disabled,
