@@ -10,6 +10,7 @@ benchmark "dataproc" {
 
   children = [
     control.dataproc_cluster_encrypted_with_kms_cmk,
+    control.dataproc_cluster_not_publicly_accessible,
     control.dataproc_cluster_public_ip_disabled
   ]
 

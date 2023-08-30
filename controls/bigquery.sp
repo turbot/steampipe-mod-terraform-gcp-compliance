@@ -11,7 +11,9 @@ benchmark "bigquery" {
   children = [
     control.bigquery_dataset_encrypted_with_cmk,
     control.bigquery_dataset_not_publicly_accessible,
-    control.bigquery_table_encrypted_with_cmk
+    control.bigquery_instance_encrypted_with_kms_cmk,
+    control.bigquery_table_encrypted_with_cmk,
+    control.bigquery_table_not_publicly_accessible
   ]
 
   tags = merge(local.bigquery_compliance_common_tags, {
