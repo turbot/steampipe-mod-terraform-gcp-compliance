@@ -4,7 +4,7 @@ locals {
   })
 }
 
-benchmark "vertex_ai" {
+benchmark "vertexai" {
   title       = "Vertex AI"
   description = "This benchmark provides a set of controls that detect Terraform GCP Vertex AI resources deviating from security best practices."
 
@@ -28,7 +28,7 @@ control "vertex_ai_dataset_encrypted_with_cmk" {
 
 control "vertex_ai_notebook_instance_restrict_public_access" {
   title       = "Vertex AI notebook instances should restrict public access"
-  description = "This control checks whether Vertex otebook instances is not public."
+  description = "This control checks whether Vertex AI notebook instances are not public."
   query       = query.vertex_ai_notebook_instance_restrict_public_access
 
   tags = local.vertex_ai_compliance_common_tags

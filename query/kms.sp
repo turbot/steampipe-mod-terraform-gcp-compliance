@@ -65,18 +65,18 @@ query "kms_key_not_publicly_accessible" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm' 
+        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm'
         else 'ok'
       end as status,
       name || case
         when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then ' is publicly accessible'
         else ' is not publicly accessible'
-      end || '.' reason      
+      end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       terraform_resource
     where
-      type in ('google_kms_crypto_key_iam_policy','google_kms_crypto_key_iam_binding','google_kms_crypto_key_iam_member');
+      type in ('google_kms_crypto_key_iam_policy', 'google_kms_crypto_key_iam_binding', 'google_kms_crypto_key_iam_member');
   EOQ
 }

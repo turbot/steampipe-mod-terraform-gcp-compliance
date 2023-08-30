@@ -7,8 +7,8 @@ query "redis_instance_auth_enabled" {
         else 'alarm'
       end as status,
       name || case
-        when (arguments ->> 'auth_enabled') = 'true' then ' auth enabled'
-        else ' auth disabled'
+        when (arguments ->> 'auth_enabled') = 'true' then ' AUTH enabled'
+        else ' AUTH disabled'
       end || '.' reason
       ${local.common_dimensions_sql}
     from

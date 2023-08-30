@@ -816,8 +816,8 @@ query "sql_instance_postgresql_pgaudit_database_flag_on" {
     from
       terraform_resource
     where
-      type = 'google_sql_database_instance' and
-      (arguments ->> 'database_version') like 'POSTGRES%';
+      type = 'google_sql_database_instance'
+      and (arguments ->> 'database_version') like 'POSTGRES%';
   EOQ
 }
 
@@ -839,8 +839,8 @@ query "sql_instance_postgresql_log_min_error_statement_flag_set" {
     from
       terraform_resource
     where
-      type = 'google_sql_database_instance' and
-      (arguments ->> 'database_version') like 'POSTGRES%';
+      type = 'google_sql_database_instance'
+      and (arguments ->> 'database_version') like 'POSTGRES%';
   EOQ
 }
 
@@ -862,8 +862,8 @@ query "sql_instance_postgresql_log_min_messages_flag_set" {
     from
       terraform_resource
     where
-      type = 'google_sql_database_instance' and
-      (arguments ->> 'database_version') like 'POSTGRES%';
+      type = 'google_sql_database_instance'
+      and (arguments ->> 'database_version') like 'POSTGRES%';
   EOQ
 }
 
@@ -885,8 +885,8 @@ query "sql_instance_postgresql_log_statement_flag_set" {
     from
       terraform_resource
     where
-      type = 'google_sql_database_instance' and
-      (arguments ->> 'database_version') like 'POSTGRES%';
+      type = 'google_sql_database_instance'
+      and (arguments ->> 'database_version') like 'POSTGRES%';
   EOQ
 }
 
@@ -908,8 +908,8 @@ query "sql_instance_sql_with_no_public_ip" {
     from
       terraform_resource
     where
-      type = 'google_sql_database_instance' and
-      (arguments ->> 'database_version') like 'SQLSERVER%';;
+      type = 'google_sql_database_instance'
+      and (arguments ->> 'database_version') like 'SQLSERVER%';
   EOQ
 }
 
@@ -918,11 +918,11 @@ query "sql_instance_using_latest_major_database_version" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments ->> 'database_version') in ('POSTGRES_15','MYSQL_8_0','SQLSERVER_2019_STANDARD','SQLSERVER_2019_WEB','SQLSERVER_2019_ENTERPRISE','SQLSERVER_2019_EXPRESS') then 'ok'
+        when (arguments ->> 'database_version') in ('POSTGRES_15', 'MYSQL_8_0', 'SQLSERVER_2019_STANDARD', 'SQLSERVER_2019_WEB', 'SQLSERVER_2019_ENTERPRISE', 'SQLSERVER_2019_EXPRESS') then 'ok'
         else 'alarm'
       end as status,
       name || case
-        when (arguments ->> 'database_version') in ('POSTGRES_15','MYSQL_8_0','SQLSERVER_2019_STANDARD','SQLSERVER_2019_WEB','SQLSERVER_2019_ENTERPRISE','SQLSERVER_2019_EXPRESS') then ' latest major database version in use'
+        when (arguments ->> 'database_version') in ('POSTGRES_15', 'MYSQL_8_0', 'SQLSERVER_2019_STANDARD', 'SQLSERVER_2019_WEB', 'SQLSERVER_2019_ENTERPRISE', 'SQLSERVER_2019_EXPRESS') then ' latest major database version in use'
         else ' latest major database version not in use'
       end || '.' reason
       ${local.common_dimensions_sql}
@@ -940,14 +940,14 @@ query "sql_instance_publicly_accessible" {
       case
         when (arguments -> 'settings') is null then 'ok'
         when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is not null then 'alarm'
-        when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is null then 'ok'
+        when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is not null and (arguments -> 'settings' -> 'ip_configuration' -> 'authorized_networks' ->> 'value') is null then 'ok'
         when (arguments -> 'settings' -> 'ip_configuration' -> 'authorized_networks' ->> 'value') like '%/0' then 'alarm'
         else 'ok'
       end as status,
       name || case
         when (arguments -> 'settings') is null then ' no settings found'
         when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is null then ' authorized network set in dynamic mode'
-        when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is not null then ' authorized network not set'
+        when (arguments -> 'settings' -> 'ip_configuration' -> 'dynamic' -> 'authorized_networks') is not null and (arguments -> 'settings' -> 'ip_configuration' -> 'authorized_networks' ->> 'value') is null then ' authorized network not set'
         when (arguments -> 'settings' -> 'ip_configuration' -> 'authorized_networks' ->> 'value') like '%/0' then ' publicly accessible'
         else ' not publicly accessible'
       end || '.' reason

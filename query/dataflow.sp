@@ -3,12 +3,12 @@ query "dataflow_job_not_publicly_accessible" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments ->> 'ip_configuration') = 'WORKER_IP_PRIVATE' then 'ok' 
+        when (arguments ->> 'ip_configuration') = 'WORKER_IP_PRIVATE' then 'ok'
         else 'alarm'
       end as status,
       name || case
-        when (arguments ->> 'ip_configuration') = 'WORKER_IP_PRIVATE' then ' jobs are private' 
-        else ' jobs are public'
+        when (arguments ->> 'ip_configuration') = 'WORKER_IP_PRIVATE' then ' is private'
+        else ' is public'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -24,12 +24,12 @@ query "dataflow_encrypted_with_kms_cmk" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments ->> 'kms_key_name') is not null then 'ok' 
+        when (arguments ->> 'kms_key_name') is not null then 'ok'
         else 'alarm'
       end as status,
       name || case
-        when (arguments ->> 'kms_key_name') is not null then ' jobs are encrypted with kms cmk' 
-        else ' jobs are not encrypted with kms cmk'
+        when (arguments ->> 'kms_key_name') is not null then ' encrypted with KMS CMK'
+        else ' not encrypted with KMS CMK'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

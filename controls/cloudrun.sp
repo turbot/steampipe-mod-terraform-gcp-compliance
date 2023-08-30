@@ -6,7 +6,7 @@ locals {
 
 benchmark "cloudrun" {
   title       = "Cloud Run"
-  description = "This benchmark provides a set of controls that detect Terraform GCP Cloud Run services deviating from security best practices."
+  description = "This benchmark provides a set of controls that detect Terraform GCP Cloud Run resources deviating from security best practices."
 
   children = [
     control.cloudrun_not_publicly_accessible

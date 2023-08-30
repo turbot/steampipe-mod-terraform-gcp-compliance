@@ -221,17 +221,9 @@ control "compute_instance_boot_disk_encryption_enabled" {
   tags = local.compute_compliance_common_tags
 }
 
-control "compute_instance_boot_disk_encryption_enabled" {
-  title       = "Compute instance boot disk encryption should be enabled"
-  description = "This control checks whether Compute instance boot disk encryption is enabled."
-  query       = query.compute_instance_boot_disk_encryption_enabled
-
-  tags = local.compute_compliance_common_tags
-}
-
 control "compute_security_policy_prevent_message_lookup" {
-  title       = "Cloud Armor prevents message lookup in Log4j2. See CVE-2021-44228 aka log4jshell"
-  description = "This control checks if Cloud Armor is configured to prevent message lookup in Log4j2. See CVE-2021-44228 aka log4jshell"
+  title       = "Cloud Armor prevents message lookup in Log4j2"
+  description = "This control checks if Cloud Armor is configured to prevent message lookup in Log4j2. See CVE-2021-44228 aka log4jshell."
   query       = query.compute_security_policy_prevent_message_lookup
 
   tags = local.compute_compliance_common_tags
@@ -239,31 +231,31 @@ control "compute_security_policy_prevent_message_lookup" {
 
 control "compute_subnetwork_private_ipv6_google_access" {
   title       = "Compute Subnetworks should have Private IPv6 Google Access enabled"
-  description = "This control checks if Compute Subnetworks have Private IPv6 Google Access enabled"
+  description = "This control checks if Compute Subnetworks have Private IPv6 Google Access enabled."
   query       = query.compute_subnetwork_private_ipv6_google_access
 
   tags = local.compute_compliance_common_tags
 }
 
 control "compute_firewall_allow_http_port_80_ingress" {
-  title       = "Google compute firewall ingress does not allow unrestricted http port 80 access"
-  description = "This control checks if Google compute firewall ingress does not allow unrestricted http port 80 access."
+  title       = "Google compute firewall ingress does not allow unrestricted HTTP port 80 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted HTTP port 80 access."
   query       = query.compute_firewall_allow_http_port_80_ingress
 
   tags = local.compute_compliance_common_tags
 }
 
 control "compute_firewall_allow_ftp_port_20_ingress" {
-  title       = "Google compute firewall ingress does not allow unrestricted ftp port 20 access"
-  description = "This control checks if Google compute firewall ingress does not allow unrestricted ftp port 20 access."
+  title       = "Google compute firewall ingress does not allow unrestricted FTP port 20 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted FTP port 20 access."
   query       = query.compute_firewall_allow_ftp_port_20_ingress
 
   tags = local.compute_compliance_common_tags
 }
 
 control "compute_firewall_allow_ftp_port_21_ingress" {
-  title       = "Google compute firewall ingress does not allow unrestricted ftp port 21 access"
-  description = "This control checks if Google compute firewall ingress does not allow unrestricted ftp port 21 access."
+  title       = "Google compute firewall ingress does not allow unrestricted FTP port 21 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted FTP port 21 access."
   query       = query.compute_firewall_allow_ftp_port_21_ingress
 
   tags = local.compute_compliance_common_tags
@@ -278,16 +270,16 @@ control "compute_firewall_allow_ssh_port_22_ingress" {
 }
 
 control "compute_firewall_allow_rdp_port_3389_ingress" {
-  title       = "Google compute firewall ingress does not allow unrestricted rdp port 3389 access"
-  description = "This control checks if Google compute firewall ingress does not allow unrestricted rdp port 3389 access."
+  title       = "Google compute firewall ingress does not allow unrestricted RDP port 3389 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted RDP port 3389 access."
   query       = query.compute_firewall_allow_rdp_port_3389_ingress
 
   tags = local.compute_compliance_common_tags
 }
 
 control "compute_firewall_allow_mysql_port_3306_ingress" {
-  title       = "Google compute firewall ingress does not allow unrestricted mysql port 3306 access"
-  description = "This control checks if Google compute firewall ingress does not allow unrestricted mysql port 3306 access."
+  title       = "Google compute firewall ingress does not allow unrestricted MySQL port 3306 access"
+  description = "This control checks if Google compute firewall ingress does not allow unrestricted MySQL port 3306 access."
   query       = query.compute_firewall_allow_mysql_port_3306_ingress
 
   tags = local.compute_compliance_common_tags

@@ -3,12 +3,12 @@ query "spanner_database_encrypted_with_kms_cmk" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments -> 'encryption_config' ->> 'kms_key_name') is null then 'alarm' 
+        when (arguments -> 'encryption_config' ->> 'kms_key_name') is null then 'alarm'
         else 'ok'
       end as status,
       name || case
-        when (arguments -> 'encryption_config' ->> 'kms_key_name') is null then ' not encrypted with customer-managed encryption keys' 
-        else ' encrypted with customer-managed encryption keys'
+        when (arguments -> 'encryption_config' ->> 'kms_key_name') is null then ' not encrypted with KMS CMK'
+        else ' encrypted with KMS CMK'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

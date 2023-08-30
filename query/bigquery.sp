@@ -3,11 +3,11 @@ query "bigquery_table_encrypted_with_cmk" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments -> 'encryption_configuration') is null then 'alarm' 
+        when (arguments -> 'encryption_configuration') is null then 'alarm'
         else 'ok'
       end as status,
       name || case
-        when (arguments -> 'encryption_configuration') is null then ' not encrypted with customer-managed encryption keys' 
+        when (arguments -> 'encryption_configuration') is null then ' not encrypted with customer-managed encryption keys'
         else ' encrypted with customer-managed encryption keys'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -24,12 +24,12 @@ query "bigquery_dataset_encrypted_with_cmk" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments -> 'default_encryption_configuration') is null then 'alarm' 
+        when (arguments -> 'default_encryption_configuration') is null then 'alarm'
         else 'ok'
       end as status,
       name || case
-        when (arguments -> 'default_encryption_configuration') is null then ' not encrypted with CMEK' 
-        else ' encrypted with CMEK'
+        when (arguments -> 'default_encryption_configuration') is null then ' not encrypted with CMK'
+        else ' encrypted with CMK'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -45,12 +45,12 @@ query "bigquery_instance_encrypted_with_kms_cmk" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments -> 'cluster' ->> 'kms_key_name') is null then 'alarm' 
+        when (arguments -> 'cluster' ->> 'kms_key_name') is null then 'alarm'
         else 'ok'
       end as status,
       name || case
-        when (arguments -> 'cluster' ->> 'kms_key_name') is null then ' not encrypted with kms cmk' 
-        else ' encrypted with kms cmk'
+        when (arguments -> 'cluster' ->> 'kms_key_name') is null then ' not encrypted with KMS CMK'
+        else ' encrypted with KMS CMK'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -66,13 +66,13 @@ query "bigquery_table_not_publicly_accessible" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm' 
+        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm'
         else 'ok'
       end as status,
       name || case
         when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then ' is publicly accessible'
         else ' is not publicly accessible'
-      end || '.' reason      
+      end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -101,7 +101,7 @@ query "bigquery_dataset_not_publicly_accessible" {
           where
             (access ->> 'special_group' is not null and access ->> 'special_group' in ('allAuthenticatedUsers', 'allUsers'))
             or
-            not(access ?| ARRAY['user_by_email','group_by_email','domain','view','routine','dataset'])
+            not(access ?| ARRAY['user_by_email', 'group_by_email', 'domain', 'view', 'routine', 'dataset'])
         ) then 'alarm'
         else 'ok'
       end status,
@@ -115,7 +115,7 @@ query "bigquery_dataset_not_publicly_accessible" {
           where
             (access ->> 'special_group' is not null and access ->> 'special_group' in ('allAuthenticatedUsers', 'allUsers'))
             or
-            not(access ?| ARRAY['user_by_email','group_by_email','domain','view','routine','dataset'])
+            not(access ?| ARRAY['user_by_email', 'group_by_email', 'domain', 'view', 'routine', 'dataset'])
         ) then 'alarm'
         else 'ok'
       end || '.' reason

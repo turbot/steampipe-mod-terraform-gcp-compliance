@@ -228,7 +228,7 @@ query "kubernetes_cluster_metadata_server_enabled" {
       name || case
         when (arguments -> 'node_config') is null then ' node config not defined'
         when (arguments -> 'node_config' -> 'workload_metadata_config') is null then ' workload metadata config not defined'
-         when (arguments -> 'node_config' -> 'workload_metadata_config' ->> 'mode') = 'GKE_METADATA'  then ' GKE metadata server enabled'
+        when (arguments -> 'node_config' -> 'workload_metadata_config' ->> 'mode') = 'GKE_METADATA'  then ' GKE metadata server enabled'
         else ' GKE metadata server disabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -250,7 +250,7 @@ query "kubernetes_cluster_master_authorized_network_enabled" {
         else 'alarm'
       end as status,
       name || case
-          when (arguments -> 'master_authorized_networks_config') = '{}' then ' master authorized network not defined'
+        when (arguments -> 'master_authorized_networks_config') = '{}' then ' master authorized network not defined'
         when (arguments -> 'master_authorized_networks_config') is not null then ' master authorized network enabled'
         else ' master authorized network disabled'
       end || '.' reason
@@ -406,8 +406,8 @@ query "kubernetes_cluster_intranode_visibility_enabled" {
         else 'alarm'
       end as status,
       name || case
-        when (arguments ->> 'enable_intranode_visibility') = 'true' then ' intranode visibility enabled'
-        else ' intranode visibility disabled'
+        when (arguments ->> 'enable_intranode_visibility') = 'true' then ' intranodal visibility enabled'
+        else ' intranodal visibility disabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

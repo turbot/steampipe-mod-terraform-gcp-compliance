@@ -6,7 +6,7 @@ locals {
 
 benchmark "cloudbuild" {
   title       = "Cloud Build"
-  description = "This benchmark provides a set of controls that detect Terraform GCP Cloud build workers deviating from security best practices."
+  description = "This benchmark provides a set of controls that detect Terraform GCP Cloud build resources deviating from security best practices."
 
   children = [
     control.cloudbuild_workers_use_private_ip

@@ -9,29 +9,29 @@ benchmark "kubernetes" {
   description = "This benchmark provides a set of controls that detect Terraform GCP Kubernetes Engine(GKE) resources deviating from security best practices."
 
   children = [
+    control.kubernetes_cluster_alias_ip_range_enabled,
+    control.kubernetes_cluster_authenticator_group_configured,
     control.kubernetes_cluster_auto_repair_enabled,
     control.kubernetes_cluster_auto_upgrade_enabled,
+    control.kubernetes_cluster_binary_auth_enabled,
+    control.kubernetes_cluster_client_certificate_authentication_disabled,
+    control.kubernetes_cluster_control_plane_restrict_public_access,
+    control.kubernetes_cluster_cos_node_image
+    control.kubernetes_cluster_intranode_visibility_enabled,
     control.kubernetes_cluster_legacy_abac_enabled,
     control.kubernetes_cluster_legacy_endpoints_disabled,
+    control.kubernetes_cluster_master_authorized_network_enabled,
+    control.kubernetes_cluster_metadata_server_enabled,
     control.kubernetes_cluster_network_policy_installed,
     control.kubernetes_cluster_node_config_image_cos_containerd,
     control.kubernetes_cluster_private_cluster_config_enabled,
+    control.kubernetes_cluster_release_channel_configured,
+    control.kubernetes_cluster_resource_label_configured,
+    control.kubernetes_cluster_shielded_node_integrity_monitoring_enabled,
+    control.kubernetes_cluster_shielded_node_secure_boot_enabled,
     control.kubernetes_cluster_shielded_nodes_enabled,
     control.kubernetes_cluster_stackdriver_logging_enabled,
     control.kubernetes_cluster_stackdriver_monitoring_enabled,
-    control.kubernetes_cluster_metadata_server_enabled,
-    control.kubernetes_cluster_master_authorized_network_enabled,
-    control.kubernetes_cluster_authenticator_group_configured,
-    control.kubernetes_cluster_resource_label_configured,
-    control.kubernetes_cluster_client_certificate_authentication_disabled,
-    control.kubernetes_cluster_binary_auth_enabled,
-    control.kubernetes_cluster_release_channel_configured,
-    control.kubernetes_cluster_alias_ip_range_enabled,
-    control.kubernetes_cluster_intranode_visibility_enabled,
-    control.kubernetes_cluster_control_plane_restrict_public_access,
-    control.kubernetes_cluster_shielded_node_secure_boot_enabled,
-    control.kubernetes_cluster_shielded_node_integrity_monitoring_enabled,
-    control.kubernetes_cluster_cos_node_image
   ]
 
   tags = merge(local.kubernetes_compliance_common_tags, {
@@ -180,7 +180,7 @@ control "kubernetes_cluster_alias_ip_range_enabled" {
 }
 
 control "kubernetes_cluster_intranode_visibility_enabled" {
-  title = "GKE clusters intranode visibilits should be enabled"
+  title = "GKE clusters intranodal visibility should be enabled"
   query = query.kubernetes_cluster_intranode_visibility_enabled
 
   tags = local.kubernetes_compliance_common_tags

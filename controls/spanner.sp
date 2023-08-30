@@ -6,7 +6,7 @@ locals {
 
 benchmark "spanner" {
   title       = "Spanner"
-  description = "This benchmark provides a set of controls that detect Terraform GCP Spanner workers deviating from security best practices."
+  description = "This benchmark provides a set of controls that detect Terraform GCP Spanner resources deviating from security best practices."
 
   children = [
     control.spanner_database_encrypted_with_kms_cmk

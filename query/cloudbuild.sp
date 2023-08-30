@@ -7,8 +7,8 @@ query "cloudbuild_workers_use_private_ip" {
         else 'alarm'
       end as status,
       name || case
-        when (arguments -> 'worker_config' ->> 'no_external_ip') = 'true' then ' no external ip configured'
-        else ' external ip configured'
+        when (arguments -> 'worker_config' ->> 'no_external_ip') = 'true' then ' no external IP configured'
+        else ' external IP configured'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

@@ -155,7 +155,7 @@ query "compute_subnetwork_flow_log_enabled" {
         when (arguments -> 'log_config') is not null then ' flow logging enabled'
         else ' flow logging disabled'
       end || '.' reason
-      --${local.common_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       terraform_resource
     where
@@ -330,7 +330,7 @@ query "compute_instance_block_project_wide_ssh_enabled" {
         when ((arguments ->> 'source_instance_template') is not null and (arguments -> 'metadata' ->> 'block-project-ssh-keys') is null) then 'skip'
         when ((arguments ->> 'source_instance_template') is null and (arguments ->> 'metadata') is null) then 'skip'
         when ((arguments ->> 'source_instance_template') is null and (arguments -> 'metadata' ->> 'block-project-ssh-keys') is null) then 'skip'
-        when (arguments -> 'metadata' -> 'block-project-ssh-keys')::bool then 'ok'
+        when (arguments -> 'metadata' ->> 'block-project-ssh-keys')::bool then 'ok'
         else 'alarm'
       end status,
       name || case
@@ -338,7 +338,7 @@ query "compute_instance_block_project_wide_ssh_enabled" {
         when ((arguments ->> 'source_instance_template') is not null and (arguments -> 'metadata' ->> 'block-project-ssh-keys') is null) then ' underlying source template is unknown'
         when ((arguments ->> 'source_instance_template') is null and (arguments ->> 'metadata') is null) then ' block project-wide SSH keys not set'
         when ((arguments ->> 'source_instance_template') is null and (arguments -> 'metadata' ->> 'block-project-ssh-keys') is null) then ' block project-wide SSH keys not set'
-        when (arguments -> 'metadata' -> 'block-project-ssh-keys')::bool then ' block project-wide SSH keys enabled'
+        when (arguments -> 'metadata' ->> 'block-project-ssh-keys')::bool then ' block project-wide SSH keys enabled'
         else ' block project-wide SSH keys disabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -378,11 +378,11 @@ query "compute_subnetwork_private_ipv6_google_access" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments ->> 'private_ipv6_google_access') in ('ENABLE_OUTBOUND_VM_ACCESS_TO_GOOGLE','ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE') then 'ok' 
+        when (arguments ->> 'private_ipv6_google_access') in ('ENABLE_OUTBOUND_VM_ACCESS_TO_GOOGLE', 'ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE') then 'ok'
         else 'alarm'
       end as status,
       name || case
-        when (arguments ->> 'private_ipv6_google_access') in ('ENABLE_OUTBOUND_VM_ACCESS_TO_GOOGLE','ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE') then ' private IPv6 Google Access is enabled'
+        when (arguments ->> 'private_ipv6_google_access') in ('ENABLE_OUTBOUND_VM_ACCESS_TO_GOOGLE', 'ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE') then ' private IPv6 Google Access is enabled'
         else ' private IPv6 Google Access is disabled'
       end || '.' reason
       ${local.common_dimensions_sql}
@@ -716,8 +716,8 @@ query "compute_firewall_allow_mysql_port_3306_ingress" {
         else 'alarm'
       end as status,
       r.name || case
-        when g.name is null then ' restricts MYSQL access from internet through port 3306'
-        else ' allows MYSQL access from internet through port 3306'
+        when g.name is null then ' restricts MySQL access from internet through port 3306'
+        else ' allows MySQL access from internet through port 3306'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

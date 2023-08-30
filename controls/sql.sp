@@ -333,8 +333,8 @@ control "sql_instance_sql_user_options_database_flag_not_configured" {
 }
 
 control "sql_instance_postgresql_pgaudit_database_flag_on" {
-  title       = "GCP SQL PostgreSQL instance should have pgaudit database flag set to on"
-  description = "This control checks whether the pgaudit database flag for Cloud SQL PostgreSQL instance is set to on."
+  title       = "GCP SQL PostgreSQL instance should have pgaudit database flag set to 'on'"
+  description = "This control checks whether the pgaudit database flag for Cloud SQL PostgreSQL instance is set to 'on'."
   query       = query.sql_instance_postgresql_pgaudit_database_flag_on
 
   tags = local.sql_compliance_common_tags
@@ -373,17 +373,17 @@ control "sql_instance_sql_with_no_public_ip" {
 }
 
 control "sql_instance_using_latest_major_database_version" {
-  title = "GCP SQL instance should be using latest major database version"
+  title       = "GCP SQL instance should be using latest major database version"
   description = "This control checks whether the GCP SQL instance is using the latest major database version."
-  query = query.sql_instance_using_latest_major_database_version
+  query       = query.sql_instance_using_latest_major_database_version
 
   tags = local.sql_compliance_common_tags
 }
 
 control "sql_instance_publicly_accessible" {
-  title = "GCP SQL instance should not be publicly accessible"
+  title       = "GCP SQL instance should not be publicly accessible"
   description = "This control checks whether the GCP SQL instance is publicly accessible."
-  query = query.sql_instance_publicly_accessible
+  query       = query.sql_instance_publicly_accessible
 
   tags = local.sql_compliance_common_tags
 }

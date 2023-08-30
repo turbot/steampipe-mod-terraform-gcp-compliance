@@ -6,7 +6,7 @@ locals {
 
 benchmark "cloudfunction" {
   title       = "Cloud Function"
-  description = "This benchmark provides a set of controls that detect Terraform GCP Cloud Function services deviating from security best practices."
+  description = "This benchmark provides a set of controls that detect Terraform GCP Cloud Function resources deviating from security best practices."
 
   children = [
     control.cloudfunction_not_publicly_accessible

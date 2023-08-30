@@ -7,8 +7,8 @@ query "vertex_ai_dataset_encrypted_with_cmk" {
         else 'alarm'
       end as status,
       name || case
-        when (arguments -> 'encryption_spec' -> 'kms_key_name') is not null then ' encrypted with kms cmk'
-        else ' not encrypted with kms cmk'
+        when (arguments -> 'encryption_spec' -> 'kms_key_name') is not null then ' encrypted with KMS CMK'
+        else ' not encrypted with KMS CMK'
       end || '.' reason
       ${local.common_dimensions_sql}
     from
