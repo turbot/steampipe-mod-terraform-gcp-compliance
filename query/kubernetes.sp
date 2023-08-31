@@ -488,7 +488,7 @@ query "kubernetes_cluster_shielded_node_integrity_monitoring_enabled" {
       end as status,
       name || case
         when (arguments -> 'node_config' -> 'shielded_instance_config' ->> 'enable_integrity_monitoring')  = 'false' then ' integrity monitoring disabled for shielded nodes'
-        else ' integrity enabled disabled for shielded nodes'
+        else ' integrity monitoring enabled for shielded nodes'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

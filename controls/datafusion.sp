@@ -1,6 +1,6 @@
 locals {
   datafusion_compliance_common_tags = merge(local.terraform_gcp_compliance_common_tags, {
-    service = "GCP/DataFusionInstance"
+    service = "GCP/DataFusion"
   })
 }
 
