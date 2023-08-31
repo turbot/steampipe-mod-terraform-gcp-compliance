@@ -303,13 +303,11 @@ query "compute_instance_boot_disk_encryption_enabled" {
     select
       type || ' ' || name as resource,
       case
-        when (arguments -> 'boot_disk' -> 'disk_encryption_key_raw') is not null then 'ok'
-        when (arguments -> 'boot_disk' -> 'kms_key_self_link') is not null then 'ok'
+        when (arguments -> 'boot_disk' -> 'disk_encryption_key_raw') is not null or (arguments -> 'boot_disk' -> 'kms_key_self_link') is not null then 'ok'
         else 'alarm'
       end status,
       name || case
-        when (arguments -> 'boot_disk' -> 'disk_encryption_key_raw') is not null then ' boot disk encryption enabled'
-        when (arguments -> 'boot_disk' -> 'kms_key_self_link') is not null then ' boot disk encryption enabled'
+        when (arguments -> 'boot_disk' -> 'disk_encryption_key_raw') is not null or (arguments -> 'boot_disk' -> 'kms_key_self_link') is not null then ' boot disk encryption enabled'
         else ' boot disk encryption disabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
