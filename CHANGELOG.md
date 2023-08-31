@@ -24,6 +24,10 @@ _What's new?_
   - `Storage`
   - `Vertex AI`
 
+_Bug fixes_
+
+- Fixed dashboard localhost URLs in README and index doc. ([#28](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/28))
+
   ## v0.6 [2023-06-15]
 
 _What's new?_
