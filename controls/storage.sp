@@ -9,8 +9,12 @@ benchmark "storage" {
   description = "This benchmark provides a set of controls that detect Terraform GCP Cloud Storage resources deviating from security best practices."
 
   children = [
+    control.storage_bucket_logging_enabled,
     control.storage_bucket_not_publicly_accessible,
-    control.storage_bucket_uniform_access_enabled
+    control.storage_bucket_public_access_prevention_enforced,
+    control.storage_bucket_self_logging_disabled,
+    control.storage_bucket_uniform_access_enabled,
+    control.storage_bucket_versioning_enabled
   ]
 
   tags = merge(local.storage_compliance_common_tags, {
@@ -42,4 +46,36 @@ control "storage_bucket_uniform_access_enabled" {
     cis_level   = "2"
     cis_type    = "automated"
   })
+}
+
+control "storage_bucket_public_access_prevention_enforced" {
+  title       = "Storage buckets public access prevention should be enforced"
+  description = "It is recommended that public access prevention should be enforced for storage buckets."
+  query       = query.storage_bucket_public_access_prevention_enforced
+
+  tags = local.storage_compliance_common_tags
+}
+
+control "storage_bucket_versioning_enabled" {
+  title       = "Storage buckets versioning should be enabled"
+  description = "It is recommended that versioning should be enabled for storage buckets."
+  query       = query.storage_bucket_versioning_enabled
+
+  tags = local.storage_compliance_common_tags
+}
+
+control "storage_bucket_self_logging_disabled" {
+  title       = "Storage buckets self logging should be disabled"
+  description = "It is recommended that self logging should be disabled for storage buckets."
+  query       = query.storage_bucket_self_logging_disabled
+
+  tags = local.storage_compliance_common_tags
+}
+
+control "storage_bucket_logging_enabled" {
+  title       = "Storage buckets logging should be enabled"
+  description = "It is recommended that logging should be enabled for storage buckets."
+  query       = query.storage_bucket_logging_enabled
+
+  tags = local.storage_compliance_common_tags
 }

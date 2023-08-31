@@ -9,6 +9,8 @@ benchmark "kms" {
   description = "This benchmark provides a set of controls that detect Terraform GCP KMS resources deviating from security best practices."
 
   children = [
+    control.kms_key_not_publicly_accessible,
+    control.kms_key_prevent_destroy_enabled,
     control.kms_key_rotated_within_90_day,
     control.kms_key_rotated_within_100_day
   ]
@@ -39,4 +41,20 @@ control "kms_key_rotated_within_90_day" {
     cis_level   = "1"
     cis_type    = "automated"
   })
+}
+
+control "kms_key_not_publicly_accessible" {
+  title       = "KMS keys should not be publicly accessible"
+  description = "This control checks whether the KMS keys are publicly accessible."
+  query       = query.kms_key_not_publicly_accessible
+
+  tags = local.kms_compliance_common_tags
+}
+
+control "kms_key_prevent_destroy_enabled" {
+  title       = "KMS Crypto keys should have prevent destroy enabled"
+  description = "CryptoKeys cannot be deleted from Google Cloud Platform. Destroying a Terraform-managed CryptoKey will remove it from state and delete all CryptoKeyVersions, rendering the key unusable, but will not delete the resource from the project. When Terraform destroys these keys, any data previously encrypted with these keys will be irrecoverable. For this reason, it is strongly recommended that you add lifecycle hooks to the resource to prevent accidental destruction."
+  query       = query.kms_key_prevent_destroy_enabled
+
+  tags = local.kms_compliance_common_tags
 }

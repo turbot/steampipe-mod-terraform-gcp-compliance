@@ -41,3 +41,89 @@ query "storage_bucket_uniform_access_enabled" {
       type = 'google_storage_bucket';
   EOQ
 }
+
+query "storage_bucket_public_access_prevention_enforced" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments ->> 'public_access_prevention') = 'enforced' then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when (arguments ->> 'public_access_prevention') = 'enforced' then ' public access prevention enforced'
+        else ' public access prevention not enforced'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_storage_bucket';
+  EOQ
+}
+
+query "storage_bucket_versioning_enabled" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments -> 'versioning' ->> 'enabled') = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when (arguments -> 'versioning' ->> 'enabled') = 'true' then ' versioning enabled'
+        else ' versioning disabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_storage_bucket';
+  EOQ
+}
+
+query "storage_bucket_self_logging_disabled" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments -> 'logging') is null then 'skip'
+        when (arguments -> 'logging' ->> 'log_bucket') = (arguments ->> 'name') then 'alarm'
+        else 'ok'
+      end as status,
+      name || case
+        when (arguments -> 'logging') is null then ' logging is undefined'
+        when (arguments -> 'logging' ->> 'log_bucket') = (arguments ->> 'name') then ' self logging enabled'
+        else ' self logging disabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_storage_bucket';
+  EOQ
+}
+
+query "storage_bucket_logging_enabled" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments -> 'logging' ->> 'log_bucket') is not null then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when (arguments -> 'logging' ->> 'log_bucket') is not null then ' logging enabled'
+        else ' logging disabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_storage_bucket';
+  EOQ
+}
