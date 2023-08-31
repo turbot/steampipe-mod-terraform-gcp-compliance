@@ -20,7 +20,7 @@ benchmark "vertexai" {
 
 control "vertex_ai_dataset_encrypted_with_cmk" {
   title       = "Vertex AI datasets should be encrypted with KMS CMK"
-  description = "This control checks whether Vertex AI dataset is encrypted with KMS CMK."
+  description = "This control checks whether a Vertex AI dataset is encrypted with KMS CMK."
   query       = query.vertex_ai_dataset_encrypted_with_cmk
 
   tags = local.vertex_ai_compliance_common_tags
@@ -28,7 +28,7 @@ control "vertex_ai_dataset_encrypted_with_cmk" {
 
 control "vertex_ai_notebook_instance_restrict_public_access" {
   title       = "Vertex AI notebook instances should restrict public access"
-  description = "This control checks whether Vertex AI notebook instances are not public."
+  description = "This control checks whether Vertex AI notebook instances are public."
   query       = query.vertex_ai_notebook_instance_restrict_public_access
 
   tags = local.vertex_ai_compliance_common_tags

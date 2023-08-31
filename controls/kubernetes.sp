@@ -50,8 +50,8 @@ control "kubernetes_cluster_private_cluster_config_enabled" {
 }
 
 control "kubernetes_cluster_legacy_abac_enabled" {
-  title       = "Ensure Legacy Authorization is set to Disabled on Kubernetes Engine Clusters"
-  description = "This control checks that Legacy Authorization is set to Disabled on Kubernetes Engine Clusters."
+  title       = "Ensure Legacy Authorization is disabled on Kubernetes Engine Clusters"
+  description = "This control checks that Legacy Authorization is disabled on Kubernetes Engine Clusters."
   query       = query.kubernetes_cluster_legacy_abac_enabled
 
   tags = merge(local.kubernetes_compliance_common_tags, {
@@ -81,7 +81,7 @@ control "kubernetes_cluster_auto_repair_enabled" {
 
 control "kubernetes_cluster_auto_upgrade_enabled" {
   title       = "Ensure Automatic node upgrades is enabled on Kubernetes Engine Clusters nodes"
-  description = "This control checks that GKE clusters have automatic node upgrades enabled."
+  description = "This control checks that Engine Clusters nodes have automatic node upgrades enabled."
   query       = query.kubernetes_cluster_auto_upgrade_enabled
 
   tags = merge(local.kubernetes_compliance_common_tags, {

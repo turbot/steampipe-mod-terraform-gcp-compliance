@@ -20,7 +20,7 @@ benchmark "redis" {
 
 control "redis_instance_auth_enabled" {
   title       = "Redis instances should have auth enabled"
-  description = "Ensure Redis instance has AUTH enabled. This control is non-compliant if AUTH is disabled for Redis instance."
+  description = "Ensure Redis instance has Auth enabled. This control is non-compliant if Auth is disabled for Redis instance."
   query       = query.redis_instance_auth_enabled
 
   tags = local.redis_compliance_common_tags
@@ -28,7 +28,7 @@ control "redis_instance_auth_enabled" {
 
 control "redis_instance_encryption_in_transit_enabled" {
   title       = "Redis instances encryption in transit should be enabled"
-  description = "Ensure Redis instance encryption in transit is enabled. This control is non-compliant if encryption in transit is disabled for Redis instance."
+  description = "Ensure Redis instance encryption in transit is enabled. This control is non-compliant if encryption in transit is disabled for Redis instances."
   query       = query.redis_instance_encryption_in_transit_enabled
 
   tags = local.redis_compliance_common_tags

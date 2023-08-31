@@ -28,8 +28,8 @@ query "datafusion_instance_stackdriver_logging_enabled" {
         else 'alarm'
       end as status,
       name || case
-        when (arguments ->> 'enable_stackdriver_logging')::boolean then ' has Stackdriver logging enabled'
-        else ' does not have Stackdriver logging enabled'
+        when (arguments ->> 'enable_stackdriver_logging')::boolean then ' has stackdriver logging enabled'
+        else ' has stackdriver logging disabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -49,8 +49,8 @@ query "datafusion_instance_stackdriver_monitoring_enabled" {
         else 'alarm'
       end as status,
       name || case
-        when (arguments ->> 'enable_stackdriver_monitoring')::boolean then ' has Stackdriver monitoring enabled'
-        else ' does not have Stackdriver monitoring enabled'
+        when (arguments ->> 'enable_stackdriver_monitoring')::boolean then ' has stackdriver monitoring enabled'
+        else ' has stackdriver monitoring disabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

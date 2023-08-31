@@ -7,8 +7,8 @@ query "dataproc_cluster_encrypted_with_kms_cmk" {
         else 'alarm'
       end as status,
       name || case
-        when (arguments -> 'cluster_config' -> 'encryption_config' ->> 'kms_key_name') is not null then ' is encrypted with KMS CMK'
-        else ' is not encrypted with KMS CMK'
+        when (arguments -> 'cluster_config' -> 'encryption_config' ->> 'kms_key_name') is not null then ' encrypted with KMS CMK'
+        else ' not encrypted with KMS CMK'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
