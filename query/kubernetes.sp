@@ -386,7 +386,7 @@ query "kubernetes_cluster_alias_ip_range_enabled" {
       end as status,
       name || case
         when (arguments -> 'ip_allocation_policy') is not null and ((arguments ->> 'ip_allocation_policy') <> '{}') then ' alias IP range enabled'
-        else ' alias IP range enabled'
+        else ' alias IP range disabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
