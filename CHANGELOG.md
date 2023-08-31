@@ -1,4 +1,30 @@
-## v0.6 [2023-06-15]
+## v0.7 [2023-08-31]
+
+_What's new?_
+
+- Added 74 new controls across the benchmarks for the following services: ([#34](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/34))
+  - `Artifact Registry Repository`
+  - `BigQuery`
+  - `Cloud Build`
+  - `Cloud Function`
+  - `Cloud Run`
+  - `Compute`
+  - `Dataflow`
+  - `Data Fusion`
+  - `Dataproc`
+  - `DNS`
+  - `IAM`
+  - `KMS`
+  - `Kubernetes`
+  - `Logging`
+  - `PubSub`
+  - `Redis`
+  - `Spanner`
+  - `SQL`
+  - `Storage`
+  - `Vertex AI`
+
+  ## v0.6 [2023-06-15]
 
 _What's new?_
 
