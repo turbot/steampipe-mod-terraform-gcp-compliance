@@ -237,3 +237,24 @@ query "iam_folder_use_default_service_role" {
       type in ('google_folder_iam_member', 'google_folder_iam_binding');
   EOQ
 }
+
+query "iam_workload_identity_restricted" {
+  sql = <<-EOQ
+    select
+      type || ' ' || name as resource,
+      case
+        when (arguments ->> 'attribute_condition') is null or (arguments ->> 'attribute_condition') = '' then 'alarm'
+        else 'ok'
+      end status,
+      name || case
+        when (arguments ->> 'attribute_condition') is null or (arguments ->> 'attribute_condition') = '' then ' attribute_condition does not exists'
+        else ' attribute_condition exists'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_iam_workload_identity_pool_provider';
+  EOQ
+}

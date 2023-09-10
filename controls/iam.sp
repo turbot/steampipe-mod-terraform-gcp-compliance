@@ -20,7 +20,8 @@ benchmark "iam" {
     control.iam_project_use_basic_role,
     control.iam_project_use_default_service_role,
     control.iam_service_account_gcp_managed_key,
-    control.iam_service_account_no_admin_priviledge
+    control.iam_service_account_no_admin_priviledge,
+    control.iam_workload_identity_restricted,
   ]
 
   tags = merge(local.iam_compliance_common_tags, {
@@ -125,6 +126,14 @@ control "iam_folder_use_default_service_role" {
   title       = "Ensure Default Service account is not used at a folder level"
   description = "This control checks that Default Service account is not used at a folder level."
   query       = query.iam_folder_use_default_service_role
+
+  tags = local.iam_compliance_common_tags
+}
+
+control "iam_workload_identity_restricted" {
+  title       = "IAM workload identity pool provider should be restricted"
+  description = "This control checks that IAM workload identity pool provider is restricted."
+  query       = query.iam_workload_identity_restricted
 
   tags = local.iam_compliance_common_tags
 }
