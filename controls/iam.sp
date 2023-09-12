@@ -21,7 +21,7 @@ benchmark "iam" {
     control.iam_project_use_default_service_role,
     control.iam_service_account_gcp_managed_key,
     control.iam_service_account_no_admin_priviledge,
-    control.iam_workload_identity_restricted,
+    control.iam_workload_identity_restricted
   ]
 
   tags = merge(local.iam_compliance_common_tags, {
