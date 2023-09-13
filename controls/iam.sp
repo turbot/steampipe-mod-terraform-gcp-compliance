@@ -31,7 +31,7 @@ benchmark "iam" {
 
 control "iam_service_account_gcp_managed_key" {
   title       = "Ensure that there are only GCP-managed service account keys for each service account"
-  description = "User managed service accounts should not have user-managed keys. It is recommended that only GCP-managed service account keys are used for each service account."
+  description = "User-managed service accounts should not have user-managed keys. It is recommended that only GCP-managed service account keys are used for each service account."
   query       = query.iam_service_account_gcp_managed_key
 
   tags = merge(local.iam_compliance_common_tags, {
@@ -44,7 +44,7 @@ control "iam_service_account_gcp_managed_key" {
 
 control "iam_project_use_basic_role" {
   title       = "Ensure basic roles are not used at project level"
-  description = "This control checks that basic roles are not used at project level."
+  description = "This control checks that basic roles are not used at the project level."
   query       = query.iam_project_use_basic_role
 
   tags = local.iam_compliance_common_tags
@@ -52,7 +52,7 @@ control "iam_project_use_basic_role" {
 
 control "iam_organization_use_basic_role" {
   title       = "Ensure basic roles are not used at organization level"
-  description = "This control checks that basic roles are not used at organization level."
+  description = "This control checks that basic roles are not used at the organization level."
   query       = query.iam_organization_use_basic_role
 
   tags = local.iam_compliance_common_tags
@@ -84,7 +84,7 @@ control "iam_organization_impersonation_role" {
 
 control "iam_project_no_service_account_token_creator_role" {
   title       = "Ensure that users are not assigned the Service Account User or Service Account Token Creator roles at project level"
-  description = "This control checks that users are not assigned the Service Account User or Service Account Token Creator roles at project level."
+  description = "This control checks that users are not assigned the Service Account User or Service Account Token Creator roles at the project level."
   query       = query.iam_project_no_service_account_token_creator_role
 
   tags = local.iam_compliance_common_tags
@@ -92,7 +92,7 @@ control "iam_project_no_service_account_token_creator_role" {
 
 control "iam_project_use_default_service_role" {
   title       = "Ensure Default Service account is not used at a project level"
-  description = "This control checks that Default Service account is not used at a project level."
+  description = "This control checks that the Default Service account is not used at a project level."
   query       = query.iam_project_use_default_service_role
 
   tags = local.iam_compliance_common_tags
@@ -100,7 +100,7 @@ control "iam_project_use_default_service_role" {
 
 control "iam_organization_use_default_service_role" {
   title       = "Ensure Default Service account is not used at a organization level"
-  description = "This control checks that Default Service account is not used at a organization level."
+  description = "This control checks that Default Service account is not used at an organization level."
   query       = query.iam_organization_use_default_service_role
 
   tags = local.iam_compliance_common_tags
@@ -124,7 +124,7 @@ control "iam_folder_impersonation_role" {
 
 control "iam_folder_use_default_service_role" {
   title       = "Ensure Default Service account is not used at a folder level"
-  description = "This control checks that Default Service account is not used at a folder level."
+  description = "This control checks that the Default Service account is not used at a folder level."
   query       = query.iam_folder_use_default_service_role
 
   tags = local.iam_compliance_common_tags
@@ -132,7 +132,7 @@ control "iam_folder_use_default_service_role" {
 
 control "iam_workload_identity_restricted" {
   title       = "IAM workload identity pool provider should be restricted"
-  description = "This control checks that IAM workload identity pool provider is restricted."
+  description = "This control checks whether the IAM workload identity pool provider is restricted."
   query       = query.iam_workload_identity_restricted
 
   tags = local.iam_compliance_common_tags
