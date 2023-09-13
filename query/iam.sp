@@ -247,7 +247,7 @@ query "iam_workload_identity_restricted" {
         else 'ok'
       end status,
       name || case
-        when (arguments ->> 'attribute_condition') is null or (arguments ->> 'attribute_condition') = '' then ' attribute condition does not exists'
+        when (arguments ->> 'attribute_condition') is null or (arguments ->> 'attribute_condition') = '' then ' attribute condition does not exist'
         else ' attribute condition exists'
       end || '.' reason
       ${local.tag_dimensions_sql}
