@@ -1,6 +1,8 @@
 ## v0.8 [2023-09-13]
 
-Added the `iam_workload_identity_restricted` control to the `IAM` benchmark: ([#38](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/38))
+_Enhancements_
+
+- Added the `iam_workload_identity_restricted` control to the `IAM` benchmark: ([#38](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/38))
 
 ## v0.7 [2023-08-31]
 
