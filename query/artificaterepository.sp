@@ -1,13 +1,13 @@
 query "artifact_registry_repository_encrypted_with_kms_cmk" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments ->> 'kms_key_name') is null then 'alarm' 
+        when (attributes_std ->> 'kms_key_name') is null then 'alarm' 
         else 'ok'
       end as status,
-      name || case
-        when (arguments ->> 'kms_key_name') is null then ' not encrypted with KMS CMK' 
+      split_part(address, '.', 2) || case
+        when (attributes_std ->> 'kms_key_name') is null then ' not encrypted with KMS CMK' 
         else ' encrypted with KMS CMK'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -22,13 +22,13 @@ query "artifact_registry_repository_encrypted_with_kms_cmk" {
 query "artifact_registry_repository_not_publicly_accessible" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm' 
+        when (attributes_std ->> 'member') in ('allUsers','allAuthenticatedUsers') or (attributes_std -> 'members') @> '["allUsers"]' or (attributes_std -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm' 
         else 'ok'
       end as status,
-      name || case
-        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then ' is publicly accessible'
+      split_part(address, '.', 2) || case
+        when (attributes_std ->> 'member') in ('allUsers','allAuthenticatedUsers') or (attributes_std -> 'members') @> '["allUsers"]' or (attributes_std -> 'members') @> '["allAuthenticatedUsers"]' then ' is publicly accessible'
         else ' is not publicly accessible'
       end || '.' reason      
       ${local.tag_dimensions_sql}
