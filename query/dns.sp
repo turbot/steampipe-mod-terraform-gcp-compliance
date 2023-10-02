@@ -4,7 +4,7 @@ query "dns_managed_zone_zone_signing_not_using_rsasha1" {
       address as resource,
       case
         when (attributes_std ->> 'visibility') = 'private' then 'skip'
-        when (attributes_std -> 'dnssec_config') is null or coalesce((attributes_std -> 'dnssec_config' ->> 'state'), '')  in ('', 'off')
+        when (attributes_std -> 'dnssec_config') is null or coalesce((attributes_std -> 'dnssec_config' ->> 'state'), '') in ('', 'off')
         then 'alarm'
         when (attributes_std -> 'dnssec_config' -> 'default_key_specs' ->> 'algorithm') = 'rsasha1' and
           (attributes_std -> 'dnssec_config' -> 'default_key_specs' ->> 'key_type') = 'zoneSigning'
@@ -37,8 +37,8 @@ query "dns_managed_zone_dnssec_enabled" {
       address as resource,
       case
         when (attributes_std ->> 'visibility') = 'private' then 'skip'
-        when coalesce((attributes_std ->> 'visibility'), '')  in ('', 'public') and 
-          ((attributes_std -> 'dnssec_config') is null or coalesce((attributes_std -> 'dnssec_config' ->> 'state'), '')  in ('', 'off'))
+        when coalesce((attributes_std ->> 'visibility'), '') in ('', 'public') and 
+          ((attributes_std -> 'dnssec_config') is null or coalesce((attributes_std -> 'dnssec_config' ->> 'state'), '') in ('', 'off'))
         then 'alarm'
         else 'ok'
       end as status,
@@ -47,7 +47,7 @@ query "dns_managed_zone_dnssec_enabled" {
         when coalesce((attributes_std -> 'dnssec_config' ->> 'state'), '') = '' then ' ''dnssec_config.state'' is not defined'
         when (attributes_std ->> 'visibility') = 'private'
           then ' is private.'
-        when coalesce((attributes_std ->> 'visibility'), '')  in ('', 'public') and 
+        when coalesce((attributes_std ->> 'visibility'), '') in ('', 'public') and 
           ((attributes_std -> 'dnssec_config') is null or (attributes_std -> 'dnssec_config' ->> 'state') = 'off')
         then ' DNSSEC not enabled'
         else ' DNSSEC enabled'

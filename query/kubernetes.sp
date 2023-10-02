@@ -466,7 +466,7 @@ query "kubernetes_cluster_shielded_node_secure_boot_enabled" {
         else 'alarm'
       end as status,
       split_part(address, '.', 2) || case
-        when (attributes_std -> 'node_config' -> 'shielded_instance_config' ->> 'enable_secure_boot')  = 'true' then ' secure boot enabled for shielded nodes'
+        when (attributes_std -> 'node_config' -> 'shielded_instance_config' ->> 'enable_secure_boot') = 'true' then ' secure boot enabled for shielded nodes'
         else ' secure boot disabled for shielded nodes'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -487,7 +487,7 @@ query "kubernetes_cluster_shielded_node_integrity_monitoring_enabled" {
         else 'ok'
       end as status,
       split_part(address, '.', 2) || case
-        when (attributes_std -> 'node_config' -> 'shielded_instance_config' ->> 'enable_integrity_monitoring')  = 'false' then ' integrity monitoring disabled for shielded nodes'
+        when (attributes_std -> 'node_config' -> 'shielded_instance_config' ->> 'enable_integrity_monitoring') = 'false' then ' integrity monitoring disabled for shielded nodes'
         else ' integrity monitoring enabled for shielded nodes'
       end || '.' reason
       ${local.tag_dimensions_sql}
