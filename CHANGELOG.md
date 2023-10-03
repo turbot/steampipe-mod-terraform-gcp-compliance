@@ -1,3 +1,14 @@
+## v0.9 [2023-10-03]
+
+_Enhancements_
+
+- Updated the queries to use the `attributes_std` and `address` columns from the `terraform_resource` table instead of `arguments`, `type` and `name` columns for better support of terraform state files. ([#42](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/42))
+
+_Dependencies_
+
+- Terraform plugin `v0.10.0` or higher is now required. ([#42](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/42))
+
+
 ## v0.8 [2023-09-13]
 
 _Enhancements_
