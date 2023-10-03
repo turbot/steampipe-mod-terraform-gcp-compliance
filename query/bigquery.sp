@@ -1,13 +1,13 @@
 query "bigquery_table_encrypted_with_cmk" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments -> 'encryption_configuration') is null then 'alarm'
+        when (attributes_std -> 'encryption_configuration') is null then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when (arguments -> 'encryption_configuration') is null then ' not encrypted with customer-managed encryption keys'
+      split_part(address, '.', 2) || case
+        when (attributes_std -> 'encryption_configuration') is null then ' not encrypted with customer-managed encryption keys'
         else ' encrypted with customer-managed encryption keys'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -22,13 +22,13 @@ query "bigquery_table_encrypted_with_cmk" {
 query "bigquery_dataset_encrypted_with_cmk" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments -> 'default_encryption_configuration') is null then 'alarm'
+        when (attributes_std -> 'default_encryption_configuration') is null then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when (arguments -> 'default_encryption_configuration') is null then ' not encrypted with CMK'
+      split_part(address, '.', 2) || case
+        when (attributes_std -> 'default_encryption_configuration') is null then ' not encrypted with CMK'
         else ' encrypted with CMK'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -43,13 +43,13 @@ query "bigquery_dataset_encrypted_with_cmk" {
 query "bigquery_instance_encrypted_with_kms_cmk" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments -> 'cluster' ->> 'kms_key_name') is null then 'alarm'
+        when (attributes_std -> 'cluster' ->> 'kms_key_name') is null then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when (arguments -> 'cluster' ->> 'kms_key_name') is null then ' not encrypted with KMS CMK'
+      split_part(address, '.', 2) || case
+        when (attributes_std -> 'cluster' ->> 'kms_key_name') is null then ' not encrypted with KMS CMK'
         else ' encrypted with KMS CMK'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -64,13 +64,13 @@ query "bigquery_instance_encrypted_with_kms_cmk" {
 query "bigquery_table_not_publicly_accessible" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm'
+        when (attributes_std ->> 'member') in ('allUsers','allAuthenticatedUsers') or (attributes_std -> 'members') @> '["allUsers"]' or (attributes_std -> 'members') @> '["allAuthenticatedUsers"]' then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when (arguments ->> 'member') in ('allUsers','allAuthenticatedUsers') or (arguments -> 'members') @> '["allUsers"]' or (arguments -> 'members') @> '["allAuthenticatedUsers"]' then ' is publicly accessible'
+      split_part(address, '.', 2) || case
+        when (attributes_std ->> 'member') in ('allUsers','allAuthenticatedUsers') or (attributes_std -> 'members') @> '["allUsers"]' or (attributes_std -> 'members') @> '["allAuthenticatedUsers"]' then ' is publicly accessible'
         else ' is not publicly accessible'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -85,17 +85,17 @@ query "bigquery_table_not_publicly_accessible" {
 query "bigquery_dataset_not_publicly_accessible" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments -> 'access') is null then 'ok'
+        when (attributes_std -> 'access') is null then 'ok'
         when exists(
           select
             1
           from
             jsonb_array_elements(
               case
-                when jsonb_typeof(arguments -> 'access') = 'array' then arguments -> 'access'
-                else jsonb_build_array(arguments -> 'access')
+                when jsonb_typeof(attributes_std -> 'access') = 'array' then attributes_std -> 'access'
+                else jsonb_build_array(attributes_std -> 'access')
               end
             ) as access
           where
@@ -105,13 +105,13 @@ query "bigquery_dataset_not_publicly_accessible" {
         ) then 'alarm'
         else 'ok'
       end status,
-      name || case
-        when (arguments -> 'access') is null then 'ok'
+      split_part(address, '.', 2) || case
+        when (attributes_std -> 'access') is null then 'ok'
         when exists(
           select
             1
           from
-            jsonb_array_elements(arguments -> 'access') as access
+            jsonb_array_elements(attributes_std -> 'access') as access
           where
             (access ->> 'special_group' is not null and access ->> 'special_group' in ('allAuthenticatedUsers', 'allUsers'))
             or
