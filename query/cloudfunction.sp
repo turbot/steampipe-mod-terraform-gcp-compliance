@@ -1,13 +1,13 @@
 query "cloudfunction_not_publicly_accessible" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments ->> 'member') = 'allUsers' or (arguments -> 'members') @> '["allUsers"]' then 'alarm'
+        when (attributes_std ->> 'member') = 'allUsers' or (attributes_std -> 'members') @> '["allUsers"]' then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when (arguments ->> 'member') = 'allUsers' or (arguments -> 'members') @> '["allUsers"]' then ' is publicly accessible'
+      split_part(address, '.', 2) || case
+        when (attributes_std ->> 'member') = 'allUsers' or (attributes_std -> 'members') @> '["allUsers"]' then ' is publicly accessible'
         else ' is not publicly accessible'
       end || '.' reason
       ${local.tag_dimensions_sql}
