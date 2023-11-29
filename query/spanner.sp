@@ -51,8 +51,8 @@ query "spanner_database_drop_protection_enabled" {
         else 'alarm'
       end status,
       split_part(address, '.', 2) || case
-        when (attributes_std -> 'enable_drop_protection')::boolean then ' enable drop protection enabled'
-        else ' enable drop protection disabled'
+        when (attributes_std -> 'enable_drop_protection')::boolean then ' drop protection enabled'
+        else ' drop protection disabled'
       end || '.' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

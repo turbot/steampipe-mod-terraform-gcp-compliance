@@ -11,7 +11,6 @@ benchmark "bigquery" {
   children = [
     control.bigquery_dataset_encrypted_with_cmk,
     control.bigquery_dataset_not_publicly_accessible,
-    control.bigquery_instance_encrypted_with_kms_cmk,
     control.bigquery_table_deletion_protection_enabled,
     control.bigquery_table_encrypted_with_cmk,
     control.bigquery_table_not_publicly_accessible,
@@ -64,13 +63,6 @@ control "bigquery_table_encrypted_with_cmk" {
   })
 }
 
-control "bigquery_instance_encrypted_with_kms_cmk" {
-  title       = "Big Query Instance should be encrypted with KMS CMK"
-  description = "This control checks whether the Big Query Instance is encrypted with KMS CMK."
-  query       = query.bigquery_instance_encrypted_with_kms_cmk
-
-  tags = local.bigquery_compliance_common_tags
-}
 
 control "bigquery_table_not_publicly_accessible" {
   title       = "Big Query Table should not be publicly accessible"
@@ -84,14 +76,6 @@ control "bigquery_table_deletion_protection_enabled" {
   title       = "Big Query Table deletion protection should be enabled"
   description = "This rule ensures that Big Query Table has deletion protection enabled."
   query       = query.bigquery_table_deletion_protection_enabled
-
-  tags = local.bigquery_compliance_common_tags
-}
-
-control "bigtable_instance_deletion_protection_enabled" {
-  title       = "Big Table Instance deletion protection should be enabled"
-  description = "This rule ensures that Big Table Instance has deletion protection enabled."
-  query       = query.bigtable_instance_deletion_protection_enabled
 
   tags = local.bigquery_compliance_common_tags
 }
