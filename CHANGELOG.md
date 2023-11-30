@@ -2,10 +2,11 @@
 
 _What's new?_
 
-- Added 4 new controls across the benchmarks for the following services: ([#49](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/49))
-  - `BigQuery`
-  - `Bigtable`
-  - `Spanner`
+- Added the following controls across the benchmarks: ([#49](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/49))
+  - `bigquery_table_deletion_protection_enabled`
+  - `bigtable_instance_deletion_protection_enabled`
+  - `spanner_database_deletion_protection_enabled`
+  - `spanner_database_drop_protection_enabled`
 
 ## v0.10 [2023-11-03]
 
