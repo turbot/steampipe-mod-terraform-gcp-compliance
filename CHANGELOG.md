@@ -1,3 +1,12 @@
+## v0.11 [2023-11-30]
+
+_What's new?_
+
+- Added 4 new controls across the benchmarks for the following services: ([#49](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/49))
+  - `BigQuery`
+  - `Bigtable`
+  - `Spanner`
+
 ## v0.10 [2023-11-03]
 
 _Breaking changes_
@@ -13,7 +22,6 @@ _Enhancements_
 _Dependencies_
 
 - Terraform plugin `v0.10.0` or higher is now required. ([#42](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/42))
-
 
 ## v0.8 [2023-09-13]
 
