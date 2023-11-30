@@ -1,3 +1,13 @@
+## v0.11 [2023-11-30]
+
+_What's new?_
+
+- Added the following controls across the benchmarks: ([#49](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/49))
+  - `bigquery_table_deletion_protection_enabled`
+  - `bigtable_instance_deletion_protection_enabled`
+  - `spanner_database_deletion_protection_enabled`
+  - `spanner_database_drop_protection_enabled`
+
 ## v0.10 [2023-11-03]
 
 _Breaking changes_
@@ -13,7 +23,6 @@ _Enhancements_
 _Dependencies_
 
 - Terraform plugin `v0.10.0` or higher is now required. ([#42](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/42))
-
 
 ## v0.8 [2023-09-13]
 
