@@ -23,6 +23,7 @@ benchmark "kubernetes" {
     control.kubernetes_cluster_master_authorized_network_enabled,
     control.kubernetes_cluster_metadata_server_enabled,
     control.kubernetes_cluster_network_policy_installed,
+    control.kubernetes_cluster_no_cluster_level_node_pool,
     control.kubernetes_cluster_node_config_image_cos_containerd,
     control.kubernetes_cluster_private_cluster_config_enabled,
     control.kubernetes_cluster_release_channel_configured,
@@ -31,7 +32,7 @@ benchmark "kubernetes" {
     control.kubernetes_cluster_shielded_node_secure_boot_enabled,
     control.kubernetes_cluster_shielded_nodes_enabled,
     control.kubernetes_cluster_stackdriver_logging_enabled,
-    control.kubernetes_cluster_stackdriver_monitoring_enabled,
+    control.kubernetes_cluster_stackdriver_monitoring_enabled
   ]
 
   tags = merge(local.kubernetes_compliance_common_tags, {
@@ -233,6 +234,14 @@ control "kubernetes_cluster_cos_node_image" {
   title       = "GKE clusters should use Container-Optimized OS(cos) node image"
   description = "This control checks that GKE clusters use Container-Optimized OS(cos) node image."
   query       = query.kubernetes_cluster_cos_node_image
+
+  tags = local.kubernetes_compliance_common_tags
+}
+
+control "kubernetes_cluster_no_cluster_level_node_pool" {
+  title       = "GKE clusters should not use cluster level node pool"
+  description = "This control checks that GKE clusters uses separate resource for node pool. As node pools defined in cluster configuration can not be added or removed without recreating the cluster."
+  query       = query.kubernetes_cluster_no_cluster_level_node_pool
 
   tags = local.kubernetes_compliance_common_tags
 }
