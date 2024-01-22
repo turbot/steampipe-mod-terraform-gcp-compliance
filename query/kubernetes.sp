@@ -522,3 +522,23 @@ query "kubernetes_cluster_cos_node_image" {
   EOQ
 }
 
+query "kubernetes_cluster_no_cluster_level_node_pool" {
+  sql = <<-EOQ
+    select
+      address as resource,
+      case
+        when (attributes_std -> 'node_pool') is not null then 'alarm'
+        else 'ok'
+      end as status,
+      split_part(address, '.', 2) || case
+        when (attributes_std -> 'node_pool') is not null then ' node pool defined in cluster configuration'
+        else ' node pool not defined in cluster configuration'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'google_container_cluster';
+  EOQ
+}
