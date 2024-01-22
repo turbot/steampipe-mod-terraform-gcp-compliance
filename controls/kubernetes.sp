@@ -240,7 +240,7 @@ control "kubernetes_cluster_cos_node_image" {
 
 control "kubernetes_cluster_no_cluster_level_node_pool" {
   title       = "GKE clusters should not use cluster level node pool"
-  description = "This control checks that GKE clusters uses separate resource for node pool. As node pools defined in cluster configuration can not be added or removed without recreating the cluster."
+  description = "This control checks if GKE clusters use separate node pool resources since node pools defined in cluster configuration cannot be added or removed without recreating the cluster."
   query       = query.kubernetes_cluster_no_cluster_level_node_pool
 
   tags = local.kubernetes_compliance_common_tags
