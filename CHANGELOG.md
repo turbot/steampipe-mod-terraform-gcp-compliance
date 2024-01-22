@@ -2,7 +2,7 @@
 
 _What's new?_
 
-- Added the `kubernetes_cluster_no_cluster_level_node_pool` control to the `Kubernetes` benchmark: ([#53](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/53))
+- Added the `kubernetes_cluster_no_cluster_level_node_pool` control to the `Kubernetes` benchmark. ([#53](https://github.com/turbot/steampipe-mod-terraform-gcp-compliance/pull/53))
 
 ## v0.11 [2023-11-30]
 
